@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="stroke_width">1dip</dimen>
+    <dimen name="stroke_radius">140dip</dimen>
+    <dimen name="margin_10">10dip</dimen>
+    <dimen name="width_checked_tv">125dp</dimen>
+    <dimen name="width_btn_search">190dp</dimen>
+</resources>
