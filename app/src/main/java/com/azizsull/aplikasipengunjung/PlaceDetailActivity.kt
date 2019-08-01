@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import com.bumptech.glide.Glide
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
@@ -18,7 +19,10 @@ import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.activity_restaurant_detail.fabShowRatingDialog
 import kotlinx.android.synthetic.main.activity_restaurant_detail.recyclerRatings
+import kotlinx.android.synthetic.main.activity_restaurant_detail.restaurantButtonBack
 import kotlinx.android.synthetic.main.activity_restaurant_detail.restaurantCity
+import kotlinx.android.synthetic.main.activity_restaurant_detail.restaurantImage
+import kotlinx.android.synthetic.main.activity_restaurant_detail.restaurantName
 import kotlinx.android.synthetic.main.activity_restaurant_detail.viewEmptyRatings
 
 class PlaceDetailActivity : AppCompatActivity(),
@@ -70,7 +74,7 @@ class PlaceDetailActivity : AppCompatActivity(),
 
         ratingDialog = RatingDialogFragment()
 
-        `@+id/placeButtonBack`.setOnClickListener { onBackArrowClicked() }
+        restaurantButtonBack.setOnClickListener { onBackArrowClicked() }
         fabShowRatingDialog.setOnClickListener { onAddRatingClicked() }
     }
 
@@ -113,7 +117,7 @@ class PlaceDetailActivity : AppCompatActivity(),
     }
 
     private fun onPlaceLoaded(placeModel: PlaceModel) {
-        `@+id/placeName`.text = placeModel.name
+        restaurantName.text = placeModel.name
 //        restaurantRating.rating = placeModel.avgRating.toFloat()
 //        restaurantNumRatings.text = getString(R.string.fmt_num_ratings, placeModel.numRatings)
         restaurantCity.text = placeModel.alamat

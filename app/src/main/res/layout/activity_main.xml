@@ -17,6 +17,13 @@
         app:titleMarginStart="24dp"
         app:titleTextColor="@android:color/white" />
 
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/svSearch"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="5dp"
+        app:queryHint="Cari disini..."/>
+
     <FrameLayout
         android:id="@+id/filterBarContainer"
         android:layout_width="match_parent"

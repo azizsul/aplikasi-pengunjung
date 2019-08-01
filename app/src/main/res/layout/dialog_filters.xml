@@ -14,7 +14,7 @@
         android:layout_marginBottom="8dp"
         android:text="@string/header_filters" />
 
-    <!-- Food Type -->
+    <!-- Semua Lapangan -->
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -41,7 +41,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/icon_city"
+            android:id="@+id/icon_lokasi"
             style="@style/AppTheme.FilterIcon"
             android:layout_centerVertical="true"
             android:tint="@color/greySecondary"
@@ -51,9 +51,29 @@
             android:id="@+id/spinnerCity"
             style="@style/AppTheme.FilterSpinner"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/icon_city"
-            android:entries="@array/cities" />
+            android:layout_toRightOf="@+id/icon_lokasi"
+            android:entries="@array/cities"/>
 
+    </RelativeLayout>
+
+    <!--Sort by open now -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/icon_watch"
+            style="@style/AppTheme.FilterIcon"
+            android:layout_centerVertical="true"
+            android:tint="@color/greySecondary"
+            app:srcCompat="@drawable/ic_watch"/>
+
+        <Spinner
+            android:id="@+id/spinnerOpenHour"
+            style="@style/AppTheme.FilterSpinner"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/icon_watch"
+            android:entries="@array/sort_by_open_now" />
     </RelativeLayout>
 
     <!-- Price -->
