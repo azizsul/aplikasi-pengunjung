@@ -7,13 +7,13 @@
     android:background="#E0E0E0">
 
     <RelativeLayout
-        android:id="@+id/restaurant_top_card"
+        android:id="@+id/place_top_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="4dp">
 
         <ImageView
-            android:id="@+id/restaurantImage"
+            android:id="@+id/placeImage"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:alpha="1.0"
@@ -27,16 +27,16 @@
 
         <!-- Back button -->
         <ImageView
-            android:id="@+id/restaurantButtonBack"
+            android:id="@+id/placeButtonBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackground"
-            android:layout_alignLeft="@+id/restaurantName"
+            android:layout_alignLeft="@+id/placeName"
             android:layout_marginTop="16dp"
             app:srcCompat="@drawable/ic_close_white_24px" />
 
         <TextView
-            android:id="@+id/restaurantName"
+            android:id="@+id/placeName"
             style="@style/AppTheme.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_above="@+id/restaurantCategory"
-            android:layout_alignLeft="@+id/restaurantName"
+            android:layout_alignLeft="@+id/placeName"
             app:mrb_progressTint="@android:color/white"
             app:mrb_secondaryProgressTint="@android:color/white" />
 
@@ -75,8 +75,8 @@
             style="@style/AppTheme.Subheader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/restaurantImage"
-            android:layout_alignLeft="@+id/restaurantName"
+            android:layout_alignBottom="@+id/placeImage"
+            android:layout_alignLeft="@+id/placeName"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
             android:textColor="@android:color/white"
@@ -107,7 +107,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/restaurantName"
+            android:layout_alignTop="@+id/placeName"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
             android:textColor="@android:color/white"
@@ -120,7 +120,7 @@
         android:id="@+id/fabShowRatingDialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/restaurant_top_card"
+        android:layout_alignBottom="@+id/place_top_card"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="-28dp"
         android:layout_marginRight="16dp"
@@ -131,7 +131,7 @@
         android:id="@+id/recyclerRatings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/restaurant_top_card"
+        android:layout_below="@+id/place_top_card"
         android:background="@android:color/transparent"
         android:clipToPadding="false"
         android:paddingBottom="16dp"
@@ -145,7 +145,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_below="@+id/restaurant_top_card"
+        android:layout_below="@+id/place_top_card"
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:orientation="vertical"

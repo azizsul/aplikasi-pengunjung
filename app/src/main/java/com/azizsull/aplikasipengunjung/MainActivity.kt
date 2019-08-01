@@ -61,10 +61,10 @@ class MainActivity : AppCompatActivity(),
             override fun onDataChanged() {
                 // Show/hide content if the query returns empty.
                 if (itemCount == 0) {
-                    recyclerRestaurants.visibility = View.GONE
+                    recyclerPlace.visibility = View.GONE
                     viewEmpty.visibility = View.VISIBLE
                 } else {
-                    recyclerRestaurants.visibility = View.VISIBLE
+                    recyclerPlace.visibility = View.VISIBLE
                     viewEmpty.visibility = View.GONE
                 }
             }
@@ -76,8 +76,8 @@ class MainActivity : AppCompatActivity(),
             }
         }
 
-        recyclerRestaurants.layoutManager = LinearLayoutManager(this)
-        recyclerRestaurants.adapter = adapter
+        recyclerPlace.layoutManager = LinearLayoutManager(this)
+        recyclerPlace.adapter = adapter
 
         // Filter Dialog
         filterDialog = FilterDialogFragment()

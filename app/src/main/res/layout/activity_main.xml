@@ -95,9 +95,9 @@
 
     </FrameLayout>
 
-    <!-- Main Restaurants recycler -->
+    <!-- Main Place recycler -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerRestaurants"
+        android:id="@+id/recyclerPlace"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/filterBarContainer"
@@ -142,8 +142,8 @@
         android:id="@+id/progressLoading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/recyclerRestaurants"
-        android:layout_alignTop="@+id/recyclerRestaurants"
+        android:layout_alignBottom="@+id/recyclerPlace"
+        android:layout_alignTop="@+id/recyclerPlace"
         android:layout_centerHorizontal="true"
         android:visibility="gone" />
 
