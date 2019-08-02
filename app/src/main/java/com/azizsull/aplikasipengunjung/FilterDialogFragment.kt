@@ -6,11 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.dialog_filters.spinnerCategory
 import kotlinx.android.synthetic.main.dialog_filters.spinnerCity
 import kotlinx.android.synthetic.main.dialog_filters.spinnerPrice
-import kotlinx.android.synthetic.main.dialog_filters.spinnerSort
 import kotlinx.android.synthetic.main.dialog_filters.view.buttonCancel
 import kotlinx.android.synthetic.main.dialog_filters.view.buttonSearch
 
@@ -49,42 +47,10 @@ class FilterDialogFragment : DialogFragment() {
             return when (selected) {
                 getString(R.string.price_1) -> 1
                 getString(R.string.price_2) -> 2
-                getString(R.string.price_3) -> 3
                 else -> -1
             }
         }
 
-    private val selectedSortBy: String?
-        get() {
-            val selected = spinnerSort.selectedItem as String
-            if (getString(R.string.sort_by_rating) == selected) {
-                return PlaceModel.FIELD_AVG_RATING
-            }
-            if (getString(R.string.sort_by_price) == selected) {
-                return PlaceModel.FIELD_PRICE
-            }
-            return if (getString(R.string.sort_by_popularity) == selected) {
-                PlaceModel.FIELD_POPULARITY
-            } else {
-                null
-            }
-        }
-
-    private val sortDirection: Query.Direction
-        get() {
-            val selected = spinnerSort.selectedItem as String
-            if (getString(R.string.sort_by_rating) == selected) {
-                return Query.Direction.DESCENDING
-            }
-            if (getString(R.string.sort_by_price) == selected) {
-                return Query.Direction.ASCENDING
-            }
-            return if (getString(R.string.sort_by_popularity) == selected) {
-                Query.Direction.DESCENDING
-            } else {
-                Query.Direction.DESCENDING
-            }
-        }
 
     val filters: Filters
         get() {
@@ -93,8 +59,6 @@ class FilterDialogFragment : DialogFragment() {
             filters.category = selectedCategory
             filters.city = selectedCity
             filters.price = selectedPrice
-            filters.sortBy = selectedSortBy
-            filters.sortDirection = sortDirection
 
             return filters
         }
@@ -145,7 +109,6 @@ class FilterDialogFragment : DialogFragment() {
         spinnerCategory?.setSelection(0)
         spinnerCity?.setSelection(0)
         spinnerPrice?.setSelection(0)
-        spinnerSort?.setSelection(0)
     }
 
     companion object {

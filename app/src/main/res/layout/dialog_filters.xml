@@ -97,26 +97,6 @@
 
     </RelativeLayout>
 
-    <!-- Sort by -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/icon_sort"
-            style="@style/AppTheme.FilterIcon"
-            android:layout_centerVertical="true"
-            android:tint="@color/greySecondary"
-            app:srcCompat="@drawable/ic_sort_white_24px" />
-
-        <Spinner
-            android:id="@+id/spinnerSort"
-            style="@style/AppTheme.FilterSpinner"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/icon_sort"
-            android:entries="@array/sort_by" />
-    </RelativeLayout>
-
     <!-- Cancel and apply buttons -->
     <LinearLayout
         android:layout_width="match_parent"

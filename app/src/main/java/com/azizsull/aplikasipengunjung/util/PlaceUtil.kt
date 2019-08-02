@@ -43,7 +43,7 @@ object PlaceUtil {
         places.price = getRandomInt(prices, random)
         places.numRatings = random.nextInt(20)
 
-        // Note: average rating intentionally not set
+        // Note: average fieldType intentionally not set
 
         return places
     }

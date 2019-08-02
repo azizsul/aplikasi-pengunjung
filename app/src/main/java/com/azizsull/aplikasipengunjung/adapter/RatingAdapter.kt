@@ -5,15 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.firebase.firestore.Query
-import kotlinx.android.synthetic.main.item_rating.view.ratingItemDate
-import kotlinx.android.synthetic.main.item_rating.view.ratingItemName
-import kotlinx.android.synthetic.main.item_rating.view.ratingItemRating
-import kotlinx.android.synthetic.main.item_rating.view.ratingItemText
+import kotlinx.android.synthetic.main.item_rating.view.*
 import java.text.SimpleDateFormat
 import java.util.Locale
 
 /**
- * RecyclerView adapter for a list of [Rating].
+ * RecyclerView adapter for a list of [FieldModel].
  */
 open class RatingAdapter(query: Query) : FirestoreAdapter<RatingAdapter.ViewHolder>(query) {
 
@@ -23,29 +20,21 @@ open class RatingAdapter(query: Query) : FirestoreAdapter<RatingAdapter.ViewHold
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getSnapshot(position).toObject(Rating::class.java))
+        holder.bind(getSnapshot(position).toObject(FieldModel::class.java))
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(rating: Rating?) {
-            if (rating == null) {
+        fun bind(fieldModel: FieldModel?) {
+            if (fieldModel == null) {
                 return
             }
 
-            itemView.ratingItemName.text = rating.userName
-            itemView.ratingItemRating.rating = rating.rating.toFloat()
-            itemView.ratingItemText.text = rating.text
+            itemView.fieldName.text = fieldModel.fieldName
+            itemView.fieldType.text = fieldModel.fieldType
+            itemView.fieldPrice.text = fieldModel.price.toString()
 
-            if (rating.timestamp != null) {
-                itemView.ratingItemDate.text = FORMAT.format(rating.timestamp)
-            }
         }
 
-        companion object {
-
-            private val FORMAT = SimpleDateFormat(
-                    "MM/dd/yyyy", Locale.US)
-        }
     }
 }

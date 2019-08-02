@@ -26,30 +26,27 @@ object RatingUtil {
             "This was fantastic!  Best ever!")
 
     /**
-     * Create a random Rating POJO.
+     * Create a random FieldModel POJO.
      */
-    private val random: Rating
+    private val random: FieldModel
         get() {
-            val rating = Rating()
+            val rating = FieldModel()
 
-            val random = Random()
-
-            val score = random.nextDouble() * 5.0
-            val text = REVIEW_CONTENTS[Math.floor(score).toInt()]
+            val score: String? = null
 
             rating.userId = UUID.randomUUID().toString()
-            rating.userName = "Random User"
-            rating.rating = score
-            rating.text = text
+            rating.fieldName = "Random User"
+            rating.fieldType = score
+            rating.price = 0
 
             return rating
         }
 
     /**
-     * Get a list of random Rating POJOs.
+     * Get a list of random FieldModel POJOs.
      */
-    fun getRandomList(length: Int): List<Rating> {
-        val result = ArrayList<Rating>()
+    fun getRandomList(length: Int): List<FieldModel> {
+        val result = ArrayList<FieldModel>()
 
         for (i in 0 until length) {
             result.add(random)
@@ -59,15 +56,7 @@ object RatingUtil {
     }
 
     /**
-     * Get the average rating of a List.
+     * Get the average fieldType of a List.
      */
-    fun getAverageRating(ratings: List<Rating>): Double {
-        var sum = 0.0
 
-        for (rating in ratings) {
-            sum += rating.rating
-        }
-
-        return sum / ratings.size
-    }
 }

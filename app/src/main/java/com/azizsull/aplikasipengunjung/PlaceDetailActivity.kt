@@ -1,15 +1,13 @@
 package com.azizsull.aplikasipengunjung
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import com.bumptech.glide.Glide
-import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.EventListener
@@ -17,19 +15,12 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.Query
-import kotlinx.android.synthetic.main.activity_restaurant_detail.fabShowRatingDialog
-import kotlinx.android.synthetic.main.activity_restaurant_detail.recyclerRatings
-import kotlinx.android.synthetic.main.activity_restaurant_detail.restaurantButtonBack
-import kotlinx.android.synthetic.main.activity_restaurant_detail.restaurantCity
-import kotlinx.android.synthetic.main.activity_restaurant_detail.restaurantImage
-import kotlinx.android.synthetic.main.activity_restaurant_detail.restaurantName
-import kotlinx.android.synthetic.main.activity_restaurant_detail.viewEmptyRatings
+import kotlinx.android.synthetic.main.activity_restaurant_detail.*
 
 class PlaceDetailActivity : AppCompatActivity(),
-        EventListener<DocumentSnapshot>,
-        RatingDialogFragment.RatingListener {
+        EventListener<DocumentSnapshot> {
 
-    private var ratingDialog: RatingDialogFragment? = null
+//    private var ratingDialog: FieldDial? = null
 
     private lateinit var firestore: FirebaseFirestore
     private lateinit var placeRef: DocumentReference
@@ -72,10 +63,13 @@ class PlaceDetailActivity : AppCompatActivity(),
         recyclerRatings.layoutManager = LinearLayoutManager(this)
         recyclerRatings.adapter = ratingAdapter
 
-        ratingDialog = RatingDialogFragment()
+//        ratingDialog = FieldDial()
+
+        fabShowMap.setOnClickListener {
+            startActivity(Intent(this, MapsActivity::class.java))
+        }
 
         restaurantButtonBack.setOnClickListener { onBackArrowClicked() }
-        fabShowRatingDialog.setOnClickListener { onAddRatingClicked() }
     }
 
     public override fun onStart() {
@@ -118,11 +112,11 @@ class PlaceDetailActivity : AppCompatActivity(),
 
     private fun onPlaceLoaded(placeModel: PlaceModel) {
         restaurantName.text = placeModel.name
-//        restaurantRating.rating = placeModel.avgRating.toFloat()
-//        restaurantNumRatings.text = getString(R.string.fmt_num_ratings, placeModel.numRatings)
-        restaurantCity.text = placeModel.alamat
-//        restaurantCategory.text = placeModel.category
-//        restaurantPrice.text = PlaceUtil.getPriceString(placeModel)
+//        restaurantRating.fieldType = placeModel.avgRating.toFloat()
+//        restaurantNumRatings.price = getString(R.string.fmt_num_ratings, placeModel.numRatings)
+        restaurantCategory.text = placeModel.category
+//        restaurantCategory.price = placeModel.category
+//        restaurantPrice.price = PlaceUtil.getPriceString(placeModel)
 
         // Background image
 //        Glide.with(restaurantImage.context)
@@ -132,60 +126,6 @@ class PlaceDetailActivity : AppCompatActivity(),
 
     private fun onBackArrowClicked() {
         onBackPressed()
-    }
-
-    private fun onAddRatingClicked() {
-        ratingDialog?.show(supportFragmentManager, RatingDialogFragment.TAG)
-    }
-
-    override fun onRating(rating: Rating) {
-        // In a transaction, add the new rating and update the aggregate totals
-        addRating(placeRef, rating)
-                .addOnSuccessListener(this) {
-                    Log.d(TAG, "Rating added")
-
-                    // Hide keyboard and scroll to top
-                    hideKeyboard()
-                    recyclerRatings.smoothScrollToPosition(0)
-                }
-                .addOnFailureListener(this) { e ->
-                    Log.w(TAG, "Add rating failed", e)
-
-                    // Show failure message and hide keyboard
-                    hideKeyboard()
-                    Snackbar.make(findViewById(android.R.id.content), "Failed to add rating",
-                            Snackbar.LENGTH_SHORT).show()
-                }
-    }
-
-    private fun addRating(placeRef: DocumentReference, rating: Rating): Task<Void> {
-        // Create reference for new rating, for use inside the transaction
-        val ratingRef = placeRef.collection("ratings").document()
-
-        // In a transaction, add the new rating and update the aggregate totals
-        return firestore.runTransaction { transaction ->
-            val place = transaction.get(placeRef).toObject(PlaceModel::class.java)
-            if (place == null) {
-                throw Exception("Place not found at ${placeRef.path}")
-            }
-
-            // Compute new number of ratings
-            val newNumRatings = place.numRatings + 1
-
-            // Compute new average rating
-            val oldRatingTotal = place.avgRating * place.numRatings
-            val newAvgRating = (oldRatingTotal + rating.rating) / newNumRatings
-
-            // Set new restaurant info
-            place.numRatings = newNumRatings
-            place.avgRating = newAvgRating
-
-            // Commit to Firestore
-            transaction.set(placeRef, place)
-            transaction.set(ratingRef, rating)
-
-            null
-        }
     }
 
     private fun hideKeyboard() {

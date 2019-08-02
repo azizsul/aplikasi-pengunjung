@@ -4,16 +4,9 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.bumptech.glide.Glide
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.Query
-import kotlinx.android.synthetic.main.item_restaurant.view.restaurantItemCategory
-import kotlinx.android.synthetic.main.item_restaurant.view.restaurantItemCity
-import kotlinx.android.synthetic.main.item_restaurant.view.restaurantItemImage
-import kotlinx.android.synthetic.main.item_restaurant.view.restaurantItemName
-import kotlinx.android.synthetic.main.item_restaurant.view.restaurantItemNumRatings
-import kotlinx.android.synthetic.main.item_restaurant.view.restaurantItemPrice
-import kotlinx.android.synthetic.main.item_restaurant.view.restaurantItemRating
+import kotlinx.android.synthetic.main.item_restaurant.view.*
 
 /**
  * RecyclerView adapter for a list of Restaurants.
@@ -47,23 +40,19 @@ open class PlaceAdapter(query: Query, private val listener: OnPlaceSelectedListe
                 return
             }
 
-            val resources = itemView.resources
-
             // Load image
-//            Glide.with(itemView.restaurantItemImage.context)
+//            Glide.with(itemView.placeImage.context)
 //                    .load(place.images)
-//                    .into(itemView.restaurantItemImage)
+//                    .into(itemView.placeImage)
 
-            val numRatings: Int = place.numRatings
-
-            itemView.restaurantItemName.text = place.name
-//            itemView.restaurantItemRating.rating = place.avgRating.toFloat()
-            itemView.restaurantItemCity.text = place.alamat
-//            itemView.restaurantItemCategory.text = place.category
-//            itemView.restaurantItemNumRatings.text = resources.getString(
+            itemView.placeName.text = place.name
+//            itemView.restaurantItemRating.fieldType = place.avgRating.toFloat()
+            itemView.placeDistance.text = place.alamat
+//            itemView.restaurantItemCategory.price = place.category
+//            itemView.restaurantItemNumRatings.price = resources.getString(
 //                    R.string.fmt_num_ratings,
 //                    numRatings)
-//            itemView.restaurantItemPrice.text = PlaceUtil.getPriceString(place)
+//            itemView.placePrice.price = PlaceUtil.getPriceString(place)
 
             // Click listener
             itemView.setOnClickListener {
