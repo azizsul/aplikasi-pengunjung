@@ -1,4 +1,4 @@
-package com.azizsull.aplikasipengunjung
+package com.azizsull.aplikasipengunjung.model
 
 import com.google.firebase.firestore.IgnoreExtraProperties
 

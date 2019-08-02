@@ -1,7 +1,7 @@
-package com.azizsull.aplikasipengunjung
+package com.azizsull.aplikasipengunjung.util
 
+import com.azizsull.aplikasipengunjung.model.FieldModel
 import java.util.ArrayList
-import java.util.Random
 import java.util.UUID
 
 /**

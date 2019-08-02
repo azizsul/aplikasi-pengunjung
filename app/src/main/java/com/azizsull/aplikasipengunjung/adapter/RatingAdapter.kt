@@ -1,13 +1,13 @@
-package com.azizsull.aplikasipengunjung
+package com.azizsull.aplikasipengunjung.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.azizsull.aplikasipengunjung.model.FieldModel
+import com.azizsull.aplikasipengunjung.R
 import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.item_rating.view.*
-import java.text.SimpleDateFormat
-import java.util.Locale
 
 /**
  * RecyclerView adapter for a list of [FieldModel].

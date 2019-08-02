@@ -2,6 +2,8 @@ package com.azizsull.aplikasipengunjung
 
 import android.content.Context
 import android.text.TextUtils
+import com.azizsull.aplikasipengunjung.model.PlaceModel
+import com.azizsull.aplikasipengunjung.util.PlaceUtil
 import com.google.firebase.firestore.Query
 
 /**

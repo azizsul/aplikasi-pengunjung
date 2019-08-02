@@ -1,4 +1,4 @@
-package com.azizsull.aplikasipengunjung
+package com.azizsull.aplikasipengunjung.model
 
 import android.text.TextUtils
 import com.google.firebase.auth.FirebaseUser

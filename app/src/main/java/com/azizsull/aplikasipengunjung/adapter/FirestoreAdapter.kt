@@ -1,4 +1,4 @@
-package com.azizsull.aplikasipengunjung
+package com.azizsull.aplikasipengunjung.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import android.util.Log

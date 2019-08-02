@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import com.azizsull.aplikasipengunjung.adapter.RatingAdapter
+import com.azizsull.aplikasipengunjung.model.PlaceModel
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.EventListener

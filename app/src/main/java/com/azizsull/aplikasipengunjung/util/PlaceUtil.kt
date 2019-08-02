@@ -1,8 +1,9 @@
-package com.azizsull.aplikasipengunjung
+package com.azizsull.aplikasipengunjung.util
 
 import android.content.Context
+import com.azizsull.aplikasipengunjung.R
+import com.azizsull.aplikasipengunjung.model.PlaceModel
 import java.util.Arrays
-import java.util.Locale
 import java.util.Random
 
 /**
