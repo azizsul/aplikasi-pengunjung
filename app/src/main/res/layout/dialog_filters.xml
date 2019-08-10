@@ -14,28 +14,7 @@
         android:layout_marginBottom="8dp"
         android:text="@string/header_filters" />
 
-    <!-- Semua Lapangan -->
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/icon_category"
-            style="@style/AppTheme.FilterIcon"
-            android:layout_centerVertical="true"
-            android:tint="@color/greySecondary"
-            app:srcCompat="@drawable/ic_fastfood_white_24dp" />
-
-        <Spinner
-            android:id="@+id/spinnerCategory"
-            style="@style/AppTheme.FilterSpinner"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/icon_category"
-            android:entries="@array/categories" />
-
-    </RelativeLayout>
-
-    <!-- Location -->
+    <!-- Lokasi -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -48,15 +27,15 @@
             app:srcCompat="@drawable/ic_place_white_24px" />
 
         <Spinner
-            android:id="@+id/spinnerCity"
+            android:id="@+id/spinnerLokasi"
             style="@style/AppTheme.FilterSpinner"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/icon_lokasi"
-            android:entries="@array/cities"/>
+            android:entries="@array/lokasi"/>
 
     </RelativeLayout>
 
-    <!--Sort by open now -->
+    <!--Jam Buka -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -69,14 +48,14 @@
             app:srcCompat="@drawable/ic_watch"/>
 
         <Spinner
-            android:id="@+id/spinnerOpenHour"
+            android:id="@+id/spinnerJamBuka"
             style="@style/AppTheme.FilterSpinner"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/icon_watch"
             android:entries="@array/sort_by_open_now" />
     </RelativeLayout>
 
-    <!-- Price -->
+    <!-- Harga -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -89,7 +68,7 @@
             app:srcCompat="@drawable/ic_monetization_on_white_24px" />
 
         <Spinner
-            android:id="@+id/spinnerPrice"
+            android:id="@+id/spinnerHarga"
             style="@style/AppTheme.FilterSpinner"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/icon_price"
@@ -97,7 +76,7 @@
 
     </RelativeLayout>
 
-    <!-- Sort by -->
+    <!-- Jenis Lapangan-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -107,14 +86,14 @@
             style="@style/AppTheme.FilterIcon"
             android:layout_centerVertical="true"
             android:tint="@color/greySecondary"
-            app:srcCompat="@drawable/ic_sort_white_24px" />
+            app:srcCompat="@drawable/futsalfield" />
 
         <Spinner
             android:id="@+id/spinnerSort"
             style="@style/AppTheme.FilterSpinner"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/icon_sort"
-            android:entries="@array/sort_by" />
+            android:entries="@array/jenis_lapangan" />
     </RelativeLayout>
 
     <!-- Cancel and apply buttons -->

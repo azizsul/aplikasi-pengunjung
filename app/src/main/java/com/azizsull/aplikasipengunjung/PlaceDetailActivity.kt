@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import com.bumptech.glide.Glide
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
@@ -17,12 +16,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.Query
-import kotlinx.android.synthetic.main.activity_restaurant_detail.fabShowRatingDialog
-import kotlinx.android.synthetic.main.activity_restaurant_detail.recyclerRatings
 import kotlinx.android.synthetic.main.activity_restaurant_detail.restaurantButtonBack
 import kotlinx.android.synthetic.main.activity_restaurant_detail.restaurantCity
-import kotlinx.android.synthetic.main.activity_restaurant_detail.restaurantImage
-import kotlinx.android.synthetic.main.activity_restaurant_detail.restaurantName
 import kotlinx.android.synthetic.main.activity_restaurant_detail.viewEmptyRatings
 
 class PlaceDetailActivity : AppCompatActivity(),
@@ -61,21 +56,21 @@ class PlaceDetailActivity : AppCompatActivity(),
         ratingAdapter = object : RatingAdapter(ratingsQuery) {
             override fun onDataChanged() {
                 if (itemCount == 0) {
-                    recyclerRatings.visibility = View.GONE
+                    `@+id/recyclerFields`.visibility = View.GONE
                     viewEmptyRatings.visibility = View.VISIBLE
                 } else {
-                    recyclerRatings.visibility = View.VISIBLE
+                    `@+id/recyclerFields`.visibility = View.VISIBLE
                     viewEmptyRatings.visibility = View.GONE
                 }
             }
         }
-        recyclerRatings.layoutManager = LinearLayoutManager(this)
-        recyclerRatings.adapter = ratingAdapter
+        `@+id/recyclerFields`.layoutManager = LinearLayoutManager(this)
+        `@+id/recyclerFields`.adapter = ratingAdapter
 
         ratingDialog = RatingDialogFragment()
 
         restaurantButtonBack.setOnClickListener { onBackArrowClicked() }
-        fabShowRatingDialog.setOnClickListener { onAddRatingClicked() }
+        `@+id/fabShowMaps`.setOnClickListener { onAddRatingClicked() }
     }
 
     public override fun onStart() {
@@ -117,17 +112,17 @@ class PlaceDetailActivity : AppCompatActivity(),
     }
 
     private fun onPlaceLoaded(placeModel: PlaceModel) {
-        restaurantName.text = placeModel.name
+        `@+id/tv_nama_lapangan`.text = placeModel.name
 //        restaurantRating.rating = placeModel.avgRating.toFloat()
 //        restaurantNumRatings.text = getString(R.string.fmt_num_ratings, placeModel.numRatings)
         restaurantCity.text = placeModel.alamat
-//        restaurantCategory.text = placeModel.category
+//        tv_alamat.text = placeModel.category
 //        restaurantPrice.text = PlaceUtil.getPriceString(placeModel)
 
         // Background image
-//        Glide.with(restaurantImage.context)
+//        Glide.with(placeImage.context)
 //                .load(placeModel.images)
-//                .into(restaurantImage)
+//                .into(placeImage)
     }
 
     private fun onBackArrowClicked() {
@@ -146,7 +141,7 @@ class PlaceDetailActivity : AppCompatActivity(),
 
                     // Hide keyboard and scroll to top
                     hideKeyboard()
-                    recyclerRatings.smoothScrollToPosition(0)
+                    `@+id/recyclerFields`.smoothScrollToPosition(0)
                 }
                 .addOnFailureListener(this) { e ->
                     Log.w(TAG, "Add rating failed", e)

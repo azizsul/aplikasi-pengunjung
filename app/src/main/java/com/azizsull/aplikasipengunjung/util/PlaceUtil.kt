@@ -2,7 +2,6 @@ package com.azizsull.aplikasipengunjung
 
 import android.content.Context
 import java.util.Arrays
-import java.util.Locale
 import java.util.Random
 
 /**
@@ -27,7 +26,7 @@ object PlaceUtil {
         val random = Random()
 
         // Cities (first elemnt is 'Any')
-        var cities = context.resources.getStringArray(R.array.cities)
+        var cities = context.resources.getStringArray(R.array.lokasi)
         cities = Arrays.copyOfRange(cities, 1, cities.size)
 
         // Categories (first element is 'Any')

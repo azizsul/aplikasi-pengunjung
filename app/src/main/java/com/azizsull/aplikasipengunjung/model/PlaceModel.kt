@@ -18,7 +18,7 @@ data class PlaceModel(
 
     companion object {
 
-        const val FIELD_CITY = "alamat"
+        const val FIELD_CITY = "tv_alamat"
         const val FIELD_CATEGORY = "category"
         const val FIELD_PRICE = "price"
         const val FIELD_POPULARITY = "numRatings"

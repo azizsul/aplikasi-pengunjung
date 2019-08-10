@@ -2,13 +2,14 @@
 	<string name="app_name">Aplikasi Pengunjung</string>
 
 	<string name="value_any_field" tools:ignore="ExtraTranslation">Semua Lapangan</string>
-	<string name="value_any_city">Lokasi</string>
-	<string name="value_any_price">Harga</string>
-	<string name="value_open_hour">Jam Buka</string>
+	<string name="value_any_location">Semua Lokasi</string>
+	<string name="value_nearest_location">Lokasi Terdekat</string>
+	<string name="value_any_price">Semua Harga</string>
+	<string name="value_open_hour">Semua Jam Buka</string>
 	<string name="value_lokasi">Lokasi</string>
 
-	<string name="price_1">$</string>
-	<string name="price_2">$$</string>
+	<string name="harga_terendah">Harga Terendah</string>
+	<string name="harga_tertinggi">Harga Tertinggi</string>
 	<string name="price_3">$$$</string>
 
 	<string name="label_category">Category</string>
@@ -21,9 +22,9 @@
 	<string name="header_filters">Filter</string>
 	<string name="search">Search</string>
 
-	<string name="sort_by_rating">Jenis Lapangan</string>
-	<string name="sort_by_popularity">Sort by Popularity</string>
-	<string name="sort_by_price">Sort by Price</string>
+	<string name="all_field_type">Semua Jenis Lapangan</string>
+	<string name="sort_by_vinyl">Vinyl</string>
+	<string name="sort_by_synthetic">Sintetis</string>
 
 	<string name="sorted_by_alphabet">diurut berdasarkan abjad</string>
 	<string name="sorted_by_price">sorted by price</string>
@@ -32,10 +33,10 @@
 	<string name="add_random_items">Add Random Items</string>
 	<string name="sign_out">Sign Out</string>
 	<string name="divider_bullet">•</string>
-	<string name="apply">Apply</string>
-	<string name="cancel">Cancel</string>
+	<string name="apply">Terapkan</string>
+	<string name="cancel">Batal</string>
 	<string name="message_no_results">Ups, tidak dapat menemukan hasil yang cocok dengan pencarian Anda</string>
-	<string name="message_no_reviews">Be the first to leave a review!</string>
+	<string name="message_no_field_item">Be the first to leave a review!</string>
 	<string name="hint_review">How was your experience?</string>
 	<string name="submit">Submit</string>
 	<string name="filter_add_review">Add review</string>
@@ -49,6 +50,8 @@
 	<string name="sekarang_buka">Sekarang Buka</string>
 	<string name="value_location">Lokasi</string>
 	<string name="lokasi_terdekat">Lokasi Terdekat</string>
+	<string name="text_alamat">Jl. Ringroad Utara No.168, Ngringin, Condongcatur, Kec. Depok, Kabupaten Sleman, DIY 55281</string>
+	<string name="fasilitas_default">Kamar Mandi, Musholla, Cafe, Warung, Parkir Luasssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss</string>
 
 	<!-- Types of food I could think of in 5 minutes -->
 	<string-array name="categories">
@@ -70,56 +73,57 @@
 	ite
 
 	<!-- 50 most populous cities in the US -->
-	<string-array name="cities">
-		<item>@string/value_any_city</item>
+	<string-array name="lokasi">
+		<item>@string/value_any_location</item>
+		<item>@string/value_nearest_location</item>
 
-		<item>Albuquerque</item>
-		<item>Arlington</item>
-		<item>Atlanta</item>
-		<item>Austin</item>
-		<item>Baltimore</item>
-		<item>Boston</item>
-		<item>Charlotte</item>
-		<item>Chicago</item>
-		<item>Cleveland</item>
-		<item>Colorado Springs</item>
-		<item>Columbus</item>
-		<item>Dallas</item>
-		<item>Denver</item>
-		<item>Detroit</item>
-		<item>El Paso</item>
-		<item>Fort Worth</item>
-		<item>Fresno</item>
-		<item>Houston</item>
-		<item>Indianapolis</item>
-		<item>Jacksonville</item>
-		<item>Kansas City</item>
-		<item>Las Vegas</item>
-		<item>Long Beach</item>
-		<item>Los Angeles</item>
-		<item>Louisville</item>
-		<item>Memphis</item>
-		<item>Mesa</item>
-		<item>Miami</item>
-		<item>Milwaukee</item>
-		<item>Nashville</item>
-		<item>New York</item>
-		<item>Oakland</item>
-		<item>Oklahoma</item>
-		<item>Omaha</item>
-		<item>Philadelphia</item>
-		<item>Phoenix</item>
-		<item>Portland</item>
-		<item>Raleigh</item>
-		<item>Sacramento</item>
-		<item>San Antonio</item>
-		<item>San Diego</item>
-		<item>San Francisco</item>
-		<item>San Jose</item>
-		<item>Tucson</item>
-		<item>Tulsa</item>
-		<item>Virginia Beach</item>
-		<item>Washington</item>
+		<!--<item>Albuquerque</item>-->
+		<!--<item>Arlington</item>-->
+		<!--<item>Atlanta</item>-->
+		<!--<item>Austin</item>-->
+		<!--<item>Baltimore</item>-->
+		<!--<item>Boston</item>-->
+		<!--<item>Charlotte</item>-->
+		<!--<item>Chicago</item>-->
+		<!--<item>Cleveland</item>-->
+		<!--<item>Colorado Springs</item>-->
+		<!--<item>Columbus</item>-->
+		<!--<item>Dallas</item>-->
+		<!--<item>Denver</item>-->
+		<!--<item>Detroit</item>-->
+		<!--<item>El Paso</item>-->
+		<!--<item>Fort Worth</item>-->
+		<!--<item>Fresno</item>-->
+		<!--<item>Houston</item>-->
+		<!--<item>Indianapolis</item>-->
+		<!--<item>Jacksonville</item>-->
+		<!--<item>Kansas City</item>-->
+		<!--<item>Las Vegas</item>-->
+		<!--<item>Long Beach</item>-->
+		<!--<item>Los Angeles</item>-->
+		<!--<item>Louisville</item>-->
+		<!--<item>Memphis</item>-->
+		<!--<item>Mesa</item>-->
+		<!--<item>Miami</item>-->
+		<!--<item>Milwaukee</item>-->
+		<!--<item>Nashville</item>-->
+		<!--<item>New York</item>-->
+		<!--<item>Oakland</item>-->
+		<!--<item>Oklahoma</item>-->
+		<!--<item>Omaha</item>-->
+		<!--<item>Philadelphia</item>-->
+		<!--<item>Phoenix</item>-->
+		<!--<item>Portland</item>-->
+		<!--<item>Raleigh</item>-->
+		<!--<item>Sacramento</item>-->
+		<!--<item>San Antonio</item>-->
+		<!--<item>San Diego</item>-->
+		<!--<item>San Francisco</item>-->
+		<!--<item>San Jose</item>-->
+		<!--<item>Tucson</item>-->
+		<!--<item>Tulsa</item>-->
+		<!--<item>Virginia Beach</item>-->
+		<!--<item>Washington</item>-->
 	</string-array>
 
 	<!--Lokasi filters-->
@@ -133,8 +137,6 @@
 	<!--OpenHour filters-->
 	<string-array name="sort_by_open_now">
 		<item>@string/value_open_hour</item>
-
-		<!--<item>@string/jam_buka</item>-->
 		<item>@string/sekarang_buka</item>
 	</string-array>
 
@@ -142,15 +144,14 @@
 	<string-array name="prices">
 		<item>@string/value_any_price</item>
 
-		<item>@string/price_1</item>
-		<item>@string/price_2</item>
-		<item>@string/price_3</item>
+		<item>@string/harga_terendah</item>
+		<item>@string/harga_tertinggi</item>
 	</string-array>
 
 	<!-- Ways you can sort restaurants -->
-	<string-array name="sort_by">
-		<item>@string/sort_by_rating</item>
-		<item>@string/sort_by_popularity</item>
-		<item>@string/sort_by_price</item>
+	<string-array name="jenis_lapangan">
+		<item>@string/all_field_type</item>
+		<item>@string/sort_by_vinyl</item>
+		<item>@string/sort_by_synthetic</item>
 	</string-array>
 </resources>
