@@ -1,6 +1,8 @@
-package com.azizsull.aplikasipengunjung
+package com.azizsull.aplikasipengunjung.util
 
 import android.content.Context
+import com.azizsull.aplikasipengunjung.R
+import com.azizsull.aplikasipengunjung.model.PlaceModel
 import java.util.Arrays
 import java.util.Random
 
@@ -42,7 +44,7 @@ object PlaceUtil {
         places.price = getRandomInt(prices, random)
         places.numRatings = random.nextInt(20)
 
-        // Note: average rating intentionally not set
+        // Note: average fieldType intentionally not set
 
         return places
     }

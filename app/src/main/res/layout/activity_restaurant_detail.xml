@@ -7,18 +7,18 @@
     android:background="#E0E0E0">
 
     <RelativeLayout
-        android:id="@+id/place_top_card"
+        android:id="@+id/restaurant_top_card"
         android:layout_width="match_parent"
-        android:layout_height="376dp"
+        android:layout_height="wrap_content"
         android:elevation="4dp">
 
         <ImageView
-            android:id="@+id/placeImage"
+            android:id="@+id/restaurantImage"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:alpha="1.0"
             android:scaleType="centerCrop"
-            tools:src="@drawable/planetfutsal" />
+            tools:src="@drawable/food_1" />
 
         <View
             android:layout_width="match_parent"
@@ -30,116 +30,139 @@
             android:id="@+id/restaurantButtonBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/restaurantItemName"
-            android:layout_marginTop="16dp"
             android:background="?attr/selectableItemBackground"
+            android:layout_alignLeft="@+id/restaurantName"
+            android:layout_marginTop="16dp"
             app:srcCompat="@drawable/ic_close_white_24px" />
 
-        <!--Nama Tempat Futsal-->
         <TextView
-            android:id="@+id/tv_nama_lapangan"
+            android:id="@+id/restaurantName"
             style="@style/AppTheme.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/tv_alamat"
+            android:layout_above="@+id/restaurantRating"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="1dp"
-            android:textColor="@android:color/background_dark"
+            android:textColor="@android:color/white"
             android:textStyle="bold"
-            tools:text="Planet Futsal" />
+            tools:text="Some Restaurant" />
 
-        <!--Alamat-->
-        <TextView
-            android:id="@+id/tv_alamat"
-            style="@style/AppTheme.Subheader"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_alignLeft="@+id/tv_nama_lapangan"
-            android:layout_alignBottom="@+id/placeImage"
-            android:layout_marginLeft="2dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginBottom="-72dp"
-            android:drawableLeft="@drawable/ic_place"
-            android:drawablePadding="5dp"
-            android:textColor="@color/greyOld"
-            android:gravity="center_vertical"
-            tools:text="@string/text_alamat" />
+        <me.zhanghai.android.materialratingbar.MaterialRatingBar
+            android:id="@+id/restaurantRating"
+            style="@style/Widget.MaterialRatingBar.RatingBar.Indicator"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_above="@+id/restaurantCategory"
+            android:layout_alignLeft="@+id/restaurantName"
+            app:mrb_progressTint="@android:color/white"
+            app:mrb_secondaryProgressTint="@android:color/white" />
 
-        <!--Info Jam Buka-->
         <TextView
-            android:id="@+id/jamBuka"
+            android:id="@+id/restaurantNumRatings"
+            style="@style/AppTheme.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/restaurantRating"
+            android:layout_alignTop="@+id/restaurantRating"
+            android:layout_marginLeft="4dp"
+            android:layout_toRightOf="@+id/restaurantRating"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            tools:text="(10)" />
+
+        <TextView
+            android:id="@+id/restaurantCategory"
             style="@style/AppTheme.Subheader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tv_nama_lapangan"
-            android:layout_alignBottom="@+id/placeImage"
-            android:layout_marginLeft="1dp"
+            android:layout_alignBottom="@+id/restaurantImage"
+            android:layout_alignLeft="@+id/restaurantName"
+            android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="-98dp"
-            android:drawableLeft="@drawable/ic_watch_black"
-            android:drawablePadding="5dp"
-            android:textColor="@android:color/black"
-            android:textStyle="bold"
-            tools:text="08.00 - 24.00" />
+            android:textColor="@android:color/white"
+            tools:text="Italian" />
 
-        <!--No Telp-->
         <TextView
-            android:id="@+id/tv_noTelp"
+            android:id="@+id/restaurantCity_divider"
+            style="@style/AppTheme.TextDivider"
+            android:layout_alignTop="@+id/restaurantCategory"
+            android:layout_toRightOf="@+id/restaurantCategory"
+            android:text="@string/divider_bullet"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/restaurantCity"
             style="@style/AppTheme.Subheader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tv_nama_lapangan"
-            android:layout_alignBottom="@+id/placeImage"
-            android:layout_marginLeft="1dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="-123dp"
-            android:drawableLeft="@drawable/ic_phone"
-            android:drawablePadding="5dp"
-            android:textColor="@android:color/black"
-            tools:text="(0274) 4477788" />
+            android:layout_alignTop="@+id/restaurantCategory"
+            android:layout_below="@+id/restaurantCategory"
+            android:layout_toRightOf="@+id/restaurantCity_divider"
+            android:textColor="@android:color/white"
+            tools:text="San Francisco" />
 
-        <!--Fasilitas-->
         <TextView
-            android:id="@+id/tv_fasilitas"
-            style="@style/AppTheme.Subheader"
+            android:id="@+id/restaurantPrice"
+            style="@style/AppTheme.Body1"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_alignLeft="@+id/tv_nama_lapangan"
-            android:layout_alignBottom="@+id/placeImage"
-            android:layout_marginLeft="-1dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/restaurantName"
+            android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="-161dp"
-            android:drawableLeft="@drawable/ic_more"
-            android:drawablePadding="5dp"
-            android:layout_marginEnd="4dp"
-            android:gravity="center_vertical"
-            android:textColor="@android:color/black"
-            tools:text="@string/fasilitas_default" />
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            tools:text="$$$" />
 
     </RelativeLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabShowMaps"
+        android:id="@+id/fabShowRatingDialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/place_top_card"
+        android:layout_alignBottom="@+id/restaurant_top_card"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="153dp"
-        app:srcCompat="@drawable/navigation" />
+        android:layout_marginBottom="-28dp"
+        android:layout_marginRight="16dp"
+        app:srcCompat="@drawable/ic_add_white_24px" />
 
-    <!-- Lapangan -->
+    <!-- Ratings -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerFields"
+        android:id="@+id/recyclerRatings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/place_top_card"
+        android:layout_below="@+id/restaurant_top_card"
         android:background="@android:color/transparent"
         android:clipToPadding="false"
         android:paddingBottom="16dp"
         android:paddingTop="28dp"
         android:visibility="gone"
         tools:listitem="@layout/item_rating" />
+
+    <!-- View for empty ratings -->
+    <LinearLayout
+        android:id="@+id/viewEmptyRatings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/restaurant_top_card"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <ImageView
+            android:src="@drawable/pizza_monster"
+            style="@style/AppTheme.PizzaGuy" />
+
+        <TextView
+            style="@style/AppTheme.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/message_no_reviews"
+            android:textColor="@color/greyDisabled" />
+
+    </LinearLayout>
 
 </RelativeLayout>

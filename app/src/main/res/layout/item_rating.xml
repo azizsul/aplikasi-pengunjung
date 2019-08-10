@@ -8,7 +8,7 @@
     android:paddingRight="16dp">
 
     <TextView
-        android:id="@+id/ratingItemName"
+        android:id="@+id/fieldName"
         style="@style/AppTheme.Body1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,44 +20,27 @@
         tools:text="John Doe" />
 
     <TextView
-        android:id="@+id/ratingItemDivider"
-        style="@style/AppTheme.TextDivider"
+        android:id="@+id/fieldType"
+        style="@style/TextAppearance.AppCompat.Caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/ratingItemName"
-        android:text="@string/divider_bullet" />
+        android:layout_alignParentRight="true"
+        android:text="Jenis Lapangan"/>
 
     <TextView
-        android:id="@+id/ratingItemDate"
-        style="@style/AppTheme.Body1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/greySecondary"
-        android:layout_toLeftOf="@+id/ratingItemRating"
-        android:layout_toRightOf="@+id/ratingItemDivider"
-        tools:text="9/27/2017" />
-
-    <me.zhanghai.android.materialratingbar.MaterialRatingBar
-        android:id="@+id/ratingItemRating"
-        style="@style/Widget.MaterialRatingBar.RatingBar.Indicator.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true" />
-
-    <TextView
-        android:id="@+id/ratingItemText"
+        android:id="@+id/fieldPrice"
         style="@style/AppTheme.Subheader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ratingItemName"
+        android:layout_below="@+id/fieldName"
         android:layout_marginBottom="4dp"
         android:layout_marginTop="4dp"
         android:textColor="@color/greyPrimary"
-        tools:text="I thought it was pretty great! And I really have a ton to say wow." />
+        tools:text="Harga Siang - Harga Malam" />
 
     <View
         style="@style/AppTheme.Divider"
-        android:layout_below="@id/ratingItemText"
+        android:layout_below="@id/fieldPrice"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp"/>
 </RelativeLayout>

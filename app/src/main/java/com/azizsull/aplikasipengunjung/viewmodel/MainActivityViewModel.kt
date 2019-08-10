@@ -1,4 +1,4 @@
-package com.azizsull.aplikasipengunjung
+package com.azizsull.aplikasipengunjung.viewmodel
 
 import androidx.lifecycle.ViewModel
 
