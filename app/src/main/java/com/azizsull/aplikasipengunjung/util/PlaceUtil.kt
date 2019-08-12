@@ -25,7 +25,7 @@ object PlaceUtil {
      */
     fun getRandom(context: Context): PlaceModel {
         val places = PlaceModel()
-        val random = Random()
+        Random()
 
         // Cities (first elemnt is 'Any')
         var cities = context.resources.getStringArray(R.array.lokasi)
@@ -37,12 +37,12 @@ object PlaceUtil {
 
         val prices = intArrayOf(1, 2, 3)
 
-        places.name = getRandomName(random)
-        places.alamat = getRandomString(cities, random)
-        places.category = getRandomString(categories, random)
-//        places.images = getRandomImageUrl(random)
-        places.price = getRandomInt(prices, random)
-        places.numRatings = random.nextInt(20)
+//        places.name = getRandomName(random)
+//        places.alamat = getRandomString(cities, random)
+//        places.category = getRandomString(categories, random)
+////        places.images = getRandomImageUrl(random)
+//        places.price = getRandomInt(prices, random)
+//        places.numRatings = random.nextInt(20)
 
         // Note: average fieldType intentionally not set
 
@@ -62,9 +62,9 @@ object PlaceUtil {
     /**
      * Get price represented as dollar signs.
      */
-    fun getPriceString(placeModel: PlaceModel): String {
-        return getPriceString(placeModel.price)
-    }
+//    fun getPriceString(placeModel: PlaceModel): String {
+////        return getPriceString(placeModel.price)
+//    }
 
     /**
      * Get price represented as dollar signs.

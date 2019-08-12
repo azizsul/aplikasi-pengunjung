@@ -6,9 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.azizsull.aplikasipengunjung.model.PlaceModel
 import com.azizsull.aplikasipengunjung.R
+import com.azizsull.aplikasipengunjung.model.FieldModel
+import com.bumptech.glide.Glide
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.Query
-import kotlinx.android.synthetic.main.item_restaurant.view.*
+import kotlinx.android.synthetic.main.item_place.view.*
 
 /**
  * RecyclerView adapter for a list of Restaurants.
@@ -23,7 +25,7 @@ open class PlaceAdapter(query: Query, private val listener: OnPlaceSelectedListe
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return ViewHolder(inflater.inflate(R.layout.item_restaurant, parent, false))
+        return ViewHolder(inflater.inflate(R.layout.item_place, parent, false))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -42,19 +44,17 @@ open class PlaceAdapter(query: Query, private val listener: OnPlaceSelectedListe
                 return
             }
 
+//            val field = snapshot.id
+
             // Load image
 //            Glide.with(itemView.placeImage.context)
 //                    .load(place.images)
 //                    .into(itemView.placeImage)
 
             itemView.placeName.text = place.name
-//            itemView.restaurantItemRating.fieldType = place.avgRating.toFloat()
-            itemView.placeDistance.text = place.alamat
-//            itemView.restaurantItemCategory.price = place.category
-//            itemView.restaurantItemNumRatings.price = resources.getString(
-//                    R.string.fmt_num_ratings,
-//                    numRatings)
-//            itemView.placePrice.price = PlaceUtil.getPriceString(place)
+            itemView.openHour.text = place.jamBuka
+            itemView.closeHour.text = place.jamTutup
+//            itemView.placePrice.text = place.hargaSiang
 
             // Click listener
             itemView.setOnClickListener {

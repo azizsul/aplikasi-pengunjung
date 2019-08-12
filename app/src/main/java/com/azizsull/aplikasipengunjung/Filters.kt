@@ -11,15 +11,10 @@ import com.google.firebase.firestore.Query
  */
 class Filters {
 
-    var category: String? = null
     var city: String? = null
     var price = -1
     var sortBy: String? = null
     var sortDirection: Query.Direction = Query.Direction.DESCENDING
-
-    fun hasCategory(): Boolean {
-        return !TextUtils.isEmpty(category)
-    }
 
     fun hasCity(): Boolean {
         return !TextUtils.isEmpty(city)
@@ -33,24 +28,8 @@ class Filters {
         return !TextUtils.isEmpty(sortBy)
     }
 
-    fun getSearchDescription(context: Context): String {
+    fun getSearchDescription(): String {
         val desc = StringBuilder()
-
-        if (category == null && city == null) {
-            desc.append("<b>")
-            desc.append(context.getString(R.string.all_restaurants))
-            desc.append("</b>")
-        }
-
-        if (category != null) {
-            desc.append("<b>")
-            desc.append(category)
-            desc.append("</b>")
-        }
-
-        if (category != null && city != null) {
-            desc.append(" in ")
-        }
 
         if (city != null) {
             desc.append("<b>")
@@ -81,8 +60,8 @@ class Filters {
         val default: Filters
             get() {
                 val filters = Filters()
-                filters.sortBy = PlaceModel.FIELD_AVG_RATING
-                filters.sortDirection = Query.Direction.DESCENDING
+                filters.sortBy = PlaceModel.FIELD_NAME
+                filters.sortDirection = Query.Direction.ASCENDING
 
                 return filters
             }

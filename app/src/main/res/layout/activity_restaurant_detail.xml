@@ -30,7 +30,8 @@
             android:id="@+id/restaurantButtonBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/restaurantItemName"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
             android:background="?attr/selectableItemBackground"
             app:srcCompat="@drawable/ic_close_white_24px" />
@@ -43,8 +44,8 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/tv_alamat"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="1dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="7dp"
             android:textColor="@android:color/background_dark"
             android:textStyle="bold"
             tools:text="Planet Futsal" />
@@ -57,13 +58,13 @@
             android:layout_height="40dp"
             android:layout_alignLeft="@+id/tv_nama_lapangan"
             android:layout_alignBottom="@+id/placeImage"
-            android:layout_marginLeft="2dp"
+            android:layout_marginLeft="-1dp"
             android:layout_marginEnd="4dp"
-            android:layout_marginBottom="-72dp"
+            android:layout_marginBottom="-79dp"
             android:drawableLeft="@drawable/ic_place"
             android:drawablePadding="5dp"
-            android:textColor="@color/greyOld"
             android:gravity="center_vertical"
+            android:textColor="@color/greyOld"
             tools:text="@string/text_alamat" />
 
         <!--Info Jam Buka-->
@@ -74,9 +75,9 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/tv_nama_lapangan"
             android:layout_alignBottom="@+id/placeImage"
-            android:layout_marginLeft="1dp"
+            android:layout_marginLeft="0dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="-98dp"
+            android:layout_marginBottom="-106dp"
             android:drawableLeft="@drawable/ic_watch_black"
             android:drawablePadding="5dp"
             android:textColor="@android:color/black"
@@ -93,7 +94,7 @@
             android:layout_alignBottom="@+id/placeImage"
             android:layout_marginLeft="1dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="-123dp"
+            android:layout_marginBottom="-133dp"
             android:drawableLeft="@drawable/ic_phone"
             android:drawablePadding="5dp"
             android:textColor="@android:color/black"
@@ -107,12 +108,12 @@
             android:layout_height="40dp"
             android:layout_alignLeft="@+id/tv_nama_lapangan"
             android:layout_alignBottom="@+id/placeImage"
-            android:layout_marginLeft="-1dp"
+            android:layout_marginLeft="1dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="-161dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="-176dp"
             android:drawableLeft="@drawable/ic_more"
             android:drawablePadding="5dp"
-            android:layout_marginEnd="4dp"
             android:gravity="center_vertical"
             android:textColor="@android:color/black"
             tools:text="@string/fasilitas_default" />
@@ -127,7 +128,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="153dp"
-        app:srcCompat="@drawable/navigation" />
+        app:srcCompat="@drawable/ic_map_white_24dp" />
 
     <!-- Lapangan -->
     <androidx.recyclerview.widget.RecyclerView
@@ -140,6 +141,6 @@
         android:paddingBottom="16dp"
         android:paddingTop="28dp"
         android:visibility="gone"
-        tools:listitem="@layout/item_rating" />
+        tools:listitem="@layout/item_field" />
 
 </RelativeLayout>

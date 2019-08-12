@@ -4,8 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.Html
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
@@ -98,7 +96,7 @@ class MainActivity : AppCompatActivity(),
         }
 
         // Apply filters
-//        onFilter(viewModel.filters)
+        onFilter(viewModel.filters)
 
         // Start listening for Firestore updates
         adapter.startListening()
@@ -107,21 +105,6 @@ class MainActivity : AppCompatActivity(),
     public override fun onStop() {
         super.onStop()
         adapter.stopListening()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.menu_sign_out -> {
-                AuthUI.getInstance().signOut(this)
-                startSignIn()
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -167,10 +150,6 @@ class MainActivity : AppCompatActivity(),
         // Construct query basic query
         var query: Query = firestore.collection("Lapangan")
 
-        // Category (equality filter)
-        if (filters.hasCategory()) {
-//            query = query.whereEqualTo(PlaceModel.FIELD_CATEGORY, filters.category)
-        }
 
         // City (equality filter)
         if (filters.hasCity()) {
@@ -194,11 +173,11 @@ class MainActivity : AppCompatActivity(),
         adapter.setQuery(query)
 
         // Set header
-        textCurrentSearch.text = Html.fromHtml(filters.getSearchDescription(this))
+        textCurrentSearch.text = Html.fromHtml(filters.getSearchDescription())
         textCurrentSortBy.text = filters.getOrderDescription(this)
 
         // Save filters
-//        viewModel.filters = filters
+        viewModel.filters = filters
     }
 
     private fun shouldStartSignIn(): Boolean {

@@ -13,7 +13,6 @@
         android:background="@color/colorPrimary"
         android:theme="@style/AppTheme"
         app:popupTheme="@style/Theme.AppCompat.Light.DarkActionBar"
-        app:title="@string/app_name"
         app:titleMarginStart="24dp"
         app:titleTextColor="@android:color/white" />
 
@@ -109,7 +108,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/filterBarContainer"
         android:background="@android:color/white"
-        tools:listitem="@layout/item_restaurant" />
+        tools:listitem="@layout/item_place" />
 
     <!-- Shadow below toolbar -->
     <View
