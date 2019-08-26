@@ -69,7 +69,7 @@
 
         <!--Info Jam Buka-->
         <TextView
-            android:id="@+id/jamBuka"
+            android:id="@+id/tv_jamBuka"
             style="@style/AppTheme.Subheader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

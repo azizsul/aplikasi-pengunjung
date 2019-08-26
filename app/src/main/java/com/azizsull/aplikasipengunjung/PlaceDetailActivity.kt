@@ -1,23 +1,25 @@
 package com.azizsull.aplikasipengunjung
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.util.Log
-import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import com.azizsull.aplikasipengunjung.model.PlaceModel
-import com.google.android.gms.tasks.Task
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.DocumentSnapshot
+import com.github.debop.javatimes.NowLocalDateTime
+import com.github.debop.kodatimes.dateTimeOf
+import com.github.debop.kodatimes.ranges.DateTimeRange
+import com.google.firebase.firestore.*
 import com.google.firebase.firestore.EventListener
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.FirebaseFirestoreException
-import com.google.firebase.firestore.ListenerRegistration
-import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.activity_restaurant_detail.*
+import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.util.*
+
 
 class PlaceDetailActivity : AppCompatActivity(),
         EventListener<DocumentSnapshot>{
@@ -26,6 +28,10 @@ class PlaceDetailActivity : AppCompatActivity(),
     private lateinit var placeRef: DocumentReference
 
     private var placeRegistration: ListenerRegistration? = null
+
+    private val dateTime = SimpleDateFormat.getTimeInstance().format(Date().time)
+    private val beginning = "08:00"
+    private val end = "12:44"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +43,8 @@ class PlaceDetailActivity : AppCompatActivity(),
 
         // Initialize Firestore
         firestore = FirebaseFirestore.getInstance()
+
+        println("TIME NOW IS: $dateTime")
 
         // Get reference to the restaurant
         placeRef = firestore.collection("Lapangan").document(placesId)
@@ -83,8 +91,12 @@ class PlaceDetailActivity : AppCompatActivity(),
 //        restaurantRating.rating = placeModel.avgRating.toFloat()
 //        restaurantNumRatings.text = getString(R.string.fmt_num_ratings, placeModel.numRatings)
         tv_alamat.text = placeModel.alamat
-//        tv_alamat.text = placeModel.category
-//        tv_alamat.text = placeModel.hargaSiang
+        tv_noTelp.text = placeModel.noTelp
+        if(dateTime in beginning..end ) {
+            tv_jamBuka.text = "BUKA"
+        } else {
+            tv_jamBuka.text = "TUTUP"
+        }
 
         // Background image
 //        Glide.with(placeImage.context)
@@ -110,4 +122,7 @@ class PlaceDetailActivity : AppCompatActivity(),
 
         const val KEY_PLACE_ID = "key_place_id"
     }
+
+
+
 }
