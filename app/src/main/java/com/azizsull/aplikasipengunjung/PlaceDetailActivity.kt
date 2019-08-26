@@ -88,8 +88,6 @@ class PlaceDetailActivity : AppCompatActivity(),
 
     private fun onPlaceLoaded(placeModel: PlaceModel) {
         tv_nama_lapangan.text = placeModel.name
-//        restaurantRating.rating = placeModel.avgRating.toFloat()
-//        restaurantNumRatings.text = getString(R.string.fmt_num_ratings, placeModel.numRatings)
         tv_alamat.text = placeModel.alamat
         tv_noTelp.text = placeModel.noTelp
         if(dateTime in beginning..end ) {
@@ -97,6 +95,7 @@ class PlaceDetailActivity : AppCompatActivity(),
         } else {
             tv_jamBuka.text = "TUTUP"
         }
+        tv_fasilitas.text = placeModel.facility
 
         // Background image
 //        Glide.with(placeImage.context)
