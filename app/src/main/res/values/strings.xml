@@ -53,6 +53,8 @@
 	<string name="text_alamat">Jl. Ringroad Utara No.168, Ngringin, Condongcatur, Kec. Depok, Kabupaten Sleman, DIY 55281</string>
 	<string name="fasilitas_default">Kamar Mandi, Musholla, Cafe, Warung, Parkir Luasssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss</string>
 	<string name="title_activity_maps">Lokasi</string>
+	<string name="open_now">BUKA</string>
+	<string name="close_now">TUTUP</string>
 
 	<!-- Types of food I could think of in 5 minutes -->
 	<string-array name="categories">

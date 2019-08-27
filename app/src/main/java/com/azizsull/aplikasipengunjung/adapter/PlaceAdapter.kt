@@ -8,6 +8,7 @@ import com.azizsull.aplikasipengunjung.model.PlaceModel
 import com.azizsull.aplikasipengunjung.R
 import com.azizsull.aplikasipengunjung.model.FieldModel
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.item_place.view.*
@@ -16,7 +17,7 @@ import kotlinx.android.synthetic.main.item_place.view.*
  * RecyclerView adapter for a list of Restaurants.
  */
 open class PlaceAdapter(query: Query, private val listener: OnPlaceSelectedListener) :
-        FirestoreAdapter<PlaceAdapter.ViewHolder>(query) {
+    FirestoreAdapter<PlaceAdapter.ViewHolder>(query) {
 
     interface OnPlaceSelectedListener {
 
@@ -45,11 +46,13 @@ open class PlaceAdapter(query: Query, private val listener: OnPlaceSelectedListe
             }
 
 //            val field = snapshot.id
+            println(itemView.placeImage)
 
             // Load image
-//            Glide.with(itemView.placeImage.context)
-//                    .load(place.images)
-//                    .into(itemView.placeImage)
+            Glide.with(itemView.placeImage.context)
+                .load(place.images[0])
+                .apply(RequestOptions().centerInside())
+                .into(itemView.placeImage)
 
             itemView.placeName.text = place.name
             itemView.openHour.text = place.jamBuka

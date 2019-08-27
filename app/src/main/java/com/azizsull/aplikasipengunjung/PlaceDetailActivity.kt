@@ -1,37 +1,33 @@
 package com.azizsull.aplikasipengunjung
 
 import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.inputmethod.InputMethodManager
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.azizsull.aplikasipengunjung.model.PlaceModel
-import com.github.debop.javatimes.NowLocalDateTime
-import com.github.debop.kodatimes.dateTimeOf
-import com.github.debop.kodatimes.ranges.DateTimeRange
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.EventListener
 import kotlinx.android.synthetic.main.activity_restaurant_detail.*
+import kotlinx.android.synthetic.main.item_field.*
+import java.text.DateFormat
 import java.text.SimpleDateFormat
-import java.time.Instant
-import java.time.LocalDate
-import java.time.LocalDateTime
 import java.util.*
 
 
 class PlaceDetailActivity : AppCompatActivity(),
-        EventListener<DocumentSnapshot>{
+    EventListener<DocumentSnapshot> {
 
     private lateinit var firestore: FirebaseFirestore
     private lateinit var placeRef: DocumentReference
 
     private var placeRegistration: ListenerRegistration? = null
 
-    private val dateTime = SimpleDateFormat.getTimeInstance().format(Date().time)
-    private val beginning = "08:00"
-    private val end = "12:44"
+    private val dateTime = Calendar.getInstance()
+    private val time = dateTime.time
+    private val currentTime = SimpleDateFormat("HH:mm").format(time)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,12 +35,12 @@ class PlaceDetailActivity : AppCompatActivity(),
 
         // Get restaurant ID from extras
         val placesId = intent.extras?.getString(KEY_PLACE_ID)
-                ?: throw IllegalArgumentException("Must pass extra $KEY_PLACE_ID")
+            ?: throw IllegalArgumentException("Must pass extra $KEY_PLACE_ID")
 
         // Initialize Firestore
         firestore = FirebaseFirestore.getInstance()
 
-        println("TIME NOW IS: $dateTime")
+        println("TIME NOW IS: $currentTime")
 
         // Get reference to the restaurant
         placeRef = firestore.collection("Lapangan").document(placesId)
@@ -87,20 +83,25 @@ class PlaceDetailActivity : AppCompatActivity(),
     }
 
     private fun onPlaceLoaded(placeModel: PlaceModel) {
+
+        val beginning = placeModel.jamBuka
+        val end = placeModel.jamTutup
+
         tv_nama_lapangan.text = placeModel.name
         tv_alamat.text = placeModel.alamat
         tv_noTelp.text = placeModel.noTelp
-        if(dateTime in beginning..end ) {
-            tv_jamBuka.text = "BUKA"
+        if (currentTime in beginning..end) {
+            tv_jamBuka.text = getString(R.string.open_now)
         } else {
-            tv_jamBuka.text = "TUTUP"
+            tv_jamBuka.text = getString(R.string.close_now)
         }
         tv_fasilitas.text = placeModel.facility
 
         // Background image
-//        Glide.with(placeImage.context)
-//                .load(placeModel.images)
-//                .into(placeImage)
+        Glide.with(placeImage.context)
+            .load(placeModel.images[0])
+            .apply(RequestOptions())
+            .into(placeImage)
     }
 
     private fun onBackArrowClicked() {
@@ -111,7 +112,7 @@ class PlaceDetailActivity : AppCompatActivity(),
         val view = currentFocus
         if (view != null) {
             (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
-                    .hideSoftInputFromWindow(view.windowToken, 0)
+                .hideSoftInputFromWindow(view.windowToken, 0)
         }
     }
 
@@ -121,7 +122,6 @@ class PlaceDetailActivity : AppCompatActivity(),
 
         const val KEY_PLACE_ID = "key_place_id"
     }
-
 
 
 }
