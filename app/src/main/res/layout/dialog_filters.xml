@@ -11,7 +11,11 @@
         style="@style/AppTheme.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:textStyle="bold"
+        android:drawableLeft="@drawable/ic_filter_list_black_24dp"
+        android:drawablePadding="5dp"
         android:text="@string/header_filters" />
 
     <!-- Lokasi -->
@@ -89,7 +93,7 @@
             app:srcCompat="@drawable/futsalfield" />
 
         <Spinner
-            android:id="@+id/spinnerSort"
+            android:id="@+id/spinnerJenisLapangan"
             style="@style/AppTheme.FilterSpinner"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/icon_sort"
@@ -129,4 +133,3 @@
     </LinearLayout>
 
 </LinearLayout>
-

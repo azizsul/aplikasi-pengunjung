@@ -44,7 +44,7 @@ class FilterDialogFragment : DialogFragment() {
 
     private val selectedSortBy: String?
         get() {
-            val selected = spinnerSort.selectedItem as String
+            val selected = spinnerJenisLapangan.selectedItem as String
             if (getString(R.string.all_field_type) == selected) {
                 return PlaceModel.FIELD_NAME
             }
@@ -60,7 +60,7 @@ class FilterDialogFragment : DialogFragment() {
 
     private val sortDirection: Query.Direction
         get() {
-            val selected = spinnerSort.selectedItem as String
+            val selected = spinnerJenisLapangan.selectedItem as String
             if (getString(R.string.all_field_type) == selected) {
                 return Query.Direction.DESCENDING
             }
@@ -132,7 +132,7 @@ class FilterDialogFragment : DialogFragment() {
         spinnerLokasi?.setSelection(0)
         spinnerJamBuka?.setSelection(0)
         spinnerHarga?.setSelection(0)
-        spinnerSort?.setSelection(0)
+        spinnerJenisLapangan?.setSelection(0)
     }
 
     companion object {

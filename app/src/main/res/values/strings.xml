@@ -19,7 +19,7 @@
 
 	<string name="fmt_num_ratings" translatable="false">(%d)</string>
 	<string name="all_restaurants">Semua Lapangan</string>
-	<string name="header_filters">Filter</string>
+	<string name="header_filters">FILTER</string>
 	<string name="search">Search</string>
 
 	<string name="all_field_type">Semua Jenis Lapangan</string>

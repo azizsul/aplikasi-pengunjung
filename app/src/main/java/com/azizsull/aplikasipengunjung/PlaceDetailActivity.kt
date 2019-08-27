@@ -2,22 +2,17 @@ package com.azizsull.aplikasipengunjung
 
 import android.content.Context
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.util.Log
-import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.azizsull.aplikasipengunjung.model.PlaceModel
-import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.ListenerRegistration
-import com.google.firebase.firestore.Query
-import kotlinx.android.synthetic.main.activity_restaurant_detail.*
+import kotlinx.android.synthetic.main.activity_place_detail.*
 
 class PlaceDetailActivity : AppCompatActivity(),
         EventListener<DocumentSnapshot>{
@@ -29,7 +24,7 @@ class PlaceDetailActivity : AppCompatActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_restaurant_detail)
+        setContentView(R.layout.activity_place_detail)
 
         // Get restaurant ID from extras
         val placesId = intent.extras?.getString(KEY_PLACE_ID)

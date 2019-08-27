@@ -18,27 +18,27 @@
 			android:layout_height="60dp"
 			android:background="#757575"
 			android:scaleType="centerCrop"
-			android:src="@drawable/food_1" />
+			android:src="@drawable/planetfutsal" />
 
 		<LinearLayout
 			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginHorizontal="@dimen/margin_10"
+			android:layout_height="60dp"
+			android:paddingLeft="10dp"
 			android:layout_weight="3"
 			android:orientation="vertical">
 
 			<TextView
 				android:id="@+id/placeName"
-				style="@style/AppTheme.Subheader"
+				style="@style/AppTheme.Title"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_marginBottom="@dimen/margin_10"
 				android:maxLines="1"
-				tools:text="Foo's Bar" />
+				tools:text="Planet Futsal" />
 
 			<TextView
 				android:id="@+id/placePrice"
 				style="@style/AppTheme.Caption"
+				android:layout_marginTop="18dp"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:textColor="@color/greySecondary"
@@ -48,8 +48,7 @@
 
 		<LinearLayout
 			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginEnd="@dimen/margin_10"
+			android:layout_height="60dp"
 			android:orientation="vertical">
 
 			<TextView
@@ -58,7 +57,6 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_gravity="right"
-				android:layout_marginBottom="@dimen/margin_10"
 				android:textColor="@color/greySecondary"
 				tools:text="1 Km" />
 
@@ -71,19 +69,20 @@
 					style="@style/AppTheme.Caption"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
+					android:layout_marginTop="20dp"
 					android:gravity="center_vertical"
 					android:textColor="@color/greyDisabled"
-					tools:text="08.00" />
+					android:drawableLeft="@drawable/ic_watch_black"
+					android:drawablePadding="5dp"
+					tools:text="BUKA" />
 
 				<TextView
 					android:id="@+id/dash"
 					style="@style/AppTheme.Caption"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:layout_marginHorizontal="@dimen/margin_10"
 					android:gravity="center_vertical"
-					android:textColor="@color/greyDisabled"
-					tools:text="-" />
+					android:textColor="@color/greyDisabled"/>
 
 				<TextView
 					android:id="@+id/closeHour"
@@ -91,8 +90,8 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:gravity="center_vertical"
-					android:textColor="@color/greyDisabled"
-					tools:text="23.00" />
+					android:textColor="@color/greyDisabled"/>
+
 			</LinearLayout>
 		</LinearLayout>
 
