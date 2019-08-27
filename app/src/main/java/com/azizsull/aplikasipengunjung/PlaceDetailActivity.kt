@@ -11,8 +11,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.EventListener
 import kotlinx.android.synthetic.main.activity_restaurant_detail.*
-import kotlinx.android.synthetic.main.item_field.*
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
