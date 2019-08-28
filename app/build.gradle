@@ -80,6 +80,8 @@ dependencies {
     androidTestImplementation 'junit:junit:4.12'
     androidTestImplementation 'org.hamcrest:hamcrest-library:2.1'
     androidTestImplementation 'com.google.firebase:firebase-auth:19.0.0'
+    implementation 'com.firebaseui:firebase-ui-auth:4.3.2'
+    implementation 'com.firebaseui:firebase-ui-firestore:4.1.0'
 
     //koda-time
     implementation 'com.github.debop:koda-time:1.2.1'

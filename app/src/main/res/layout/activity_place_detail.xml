@@ -55,7 +55,7 @@
             android:id="@+id/tv_alamat"
             style="@style/AppTheme.Subheader"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/tv_nama_lapangan"
             android:layout_alignBottom="@+id/placeImage"
             android:layout_marginLeft="-1dp"
