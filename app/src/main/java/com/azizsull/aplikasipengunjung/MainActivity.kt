@@ -90,10 +90,10 @@ class MainActivity : AppCompatActivity(),
         super.onStart()
 
         // Start sign in if necessary
-        if (shouldStartSignIn()) {
-            startSignIn()
-            return
-        }
+//        if (shouldStartSignIn()) {
+//            startSignIn()
+//            return
+//        }
 
         // Apply filters
         onFilter(viewModel.filters)
