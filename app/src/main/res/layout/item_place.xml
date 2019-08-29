@@ -24,31 +24,22 @@
 			android:layout_width="wrap_content"
 			android:layout_height="60dp"
 			android:paddingLeft="10dp"
-			android:layout_weight="3"
 			android:orientation="vertical">
 
 			<TextView
 				android:id="@+id/placeName"
 				style="@style/AppTheme.Title"
-				android:layout_width="wrap_content"
+				android:layout_width="200dp"
 				android:layout_height="wrap_content"
 				android:maxLines="1"
 				tools:text="Planet Futsal" />
-
-			<TextView
-				android:id="@+id/placePrice"
-				style="@style/AppTheme.Caption"
-				android:layout_marginTop="18dp"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:textColor="@color/greySecondary"
-				tools:text="$$$" />
 
 		</LinearLayout>
 
 		<LinearLayout
 			android:layout_width="wrap_content"
 			android:layout_height="60dp"
+			android:layout_marginStart="@dimen/margin_10"
 			android:orientation="vertical">
 
 			<TextView
@@ -69,19 +60,20 @@
 					style="@style/AppTheme.Caption"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:layout_marginTop="20dp"
+					android:layout_marginTop="25dp"
 					android:gravity="center_vertical"
-					android:textColor="@color/greyDisabled"
-					android:drawableLeft="@drawable/ic_watch_black"
-					android:drawablePadding="5dp"
-					tools:text="BUKA" />
+					android:textColor="@color/greyDisabled"/>
 
 				<TextView
 					android:id="@+id/dash"
 					style="@style/AppTheme.Caption"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
+					android:layout_marginTop="25dp"
 					android:gravity="center_vertical"
+					android:text="-"
+					android:layout_marginStart="2dp"
+					android:layout_marginEnd="2dp"
 					android:textColor="@color/greyDisabled"/>
 
 				<TextView
@@ -89,6 +81,7 @@
 					style="@style/AppTheme.Caption"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
+					android:layout_marginTop="25dp"
 					android:gravity="center_vertical"
 					android:textColor="@color/greyDisabled"/>
 

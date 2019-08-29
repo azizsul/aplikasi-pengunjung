@@ -18,7 +18,7 @@
 	<string name="label_sort_by">Urutkan berdasarkan</string>
 
 	<string name="fmt_num_ratings" translatable="false">(%d)</string>
-	<string name="all_restaurants">Semua Lapangan</string>
+	<string name="all_place">Semua Lapangan</string>
 	<string name="header_filters">FILTER</string>
 	<string name="search">Search</string>
 
@@ -26,7 +26,7 @@
 	<string name="sort_by_vinyl">Vinyl</string>
 	<string name="sort_by_synthetic">Sintetis</string>
 
-	<string name="sorted_by_alphabet">diurut berdasarkan abjad</string>
+	<string name="sorted_by_alphabet">Diurutkan berdasarkan abjad</string>
 	<string name="sorted_by_price">sorted by price</string>
 	<string name="sorted_by_popularity">sorted by popularity</string>
 

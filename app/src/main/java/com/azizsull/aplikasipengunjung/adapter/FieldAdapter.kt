@@ -35,7 +35,7 @@ abstract class FieldAdapter(query: Query) :
 
             itemView.fieldName.text = field.name
             itemView.fieldType.text = field.jenis
-//            itemView.fieldPrice.text = field.hargaSiang
+//            itemView.dayPrice.text = field.hargaSiang
 
             // Click listener
             itemView.setOnClickListener {

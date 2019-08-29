@@ -35,10 +35,12 @@ class PlaceDetailActivity : AppCompatActivity(), EventListener<DocumentSnapshot>
         internal fun setFieldName(fieldName: String, fieldType: String, day: Int, night: Int) {
             val name = view.findViewById<TextView>(R.id.fieldName)
             val jenis = view.findViewById<TextView>(R.id.fieldType)
-            val siang = view.findViewById<TextView>(R.id.fieldPrice)
+            val siang = view.findViewById<TextView>(R.id.dayPrice)
+            val malam = view.findViewById<TextView>(R.id.nightPrice)
             name.text = fieldName
             jenis.text = fieldType
-            siang.text = "Siang: $day - Malam: $night"
+            siang.text = day.toString()
+            malam.text = night.toString()
 
         }
     }
