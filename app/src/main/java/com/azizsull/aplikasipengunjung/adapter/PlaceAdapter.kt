@@ -1,22 +1,32 @@
 package com.azizsull.aplikasipengunjung.adapter
 
-import androidx.recyclerview.widget.RecyclerView
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.azizsull.aplikasipengunjung.model.PlaceModel
+import androidx.recyclerview.widget.RecyclerView
 import com.azizsull.aplikasipengunjung.R
-import com.azizsull.aplikasipengunjung.model.FieldModel
+import com.azizsull.aplikasipengunjung.model.PlaceModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationServices
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.item_place.view.*
+import java.text.DecimalFormat
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.math.cos
+import kotlin.math.sqrt
+import com.azizsull.aplikasipengunjung.R.color as colors
+
 
 /**
  * RecyclerView adapter for a list of Restaurants.
  */
-open class PlaceAdapter(query: Query, private val listener: OnPlaceSelectedListener) :
+abstract class PlaceAdapter(query: Query, private val listener: OnPlaceSelectedListener) :
     FirestoreAdapter<PlaceAdapter.ViewHolder>(query) {
 
     interface OnPlaceSelectedListener {
@@ -35,18 +45,76 @@ open class PlaceAdapter(query: Query, private val listener: OnPlaceSelectedListe
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+        @SuppressLint("ResourceAsColor", "MissingPermission")
         fun bind(
             snapshot: DocumentSnapshot,
             listener: OnPlaceSelectedListener?
         ) {
 
-            val place = snapshot.toObject(PlaceModel::class.java)
-            if (place == null) {
-                return
-            }
+            //get current location
+            var latitude: Double
+            var longitude: Double
 
-//            val field = snapshot.id
-            println(itemView.placeImage)
+            val place = snapshot.toObject(PlaceModel::class.java) ?: return
+
+            val mLocationRequest = LocationRequest()
+            mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+            mLocationRequest.interval = 0
+            mLocationRequest.fastestInterval = 0
+            mLocationRequest.numUpdates = 1
+
+            var fusedLocationProviderClient: FusedLocationProviderClient? = null
+
+            fusedLocationProviderClient =
+                LocationServices.getFusedLocationProviderClient(itemView.context)
+
+            fusedLocationProviderClient.lastLocation
+                .addOnSuccessListener { location ->
+                    if (location != null) {
+                        latitude = location.latitude
+                        longitude = location.longitude
+
+                        //set distance
+                        val degree = 0.0174532925
+                        val radius = 6371
+
+                        //current location marker
+                        val lat = latitude * degree
+                        val long = longitude * degree
+
+                        //place location marker
+                        val lat2 = place.lat * degree
+                        val long2 = place.long * degree
+
+                        val x = (long2 - long) * cos((lat + lat2) / 2)
+                        val y = (lat2 - lat)
+                        val actual = sqrt(x * x + y * y) * radius
+
+                        val format: String = DecimalFormat("##.##").format(actual)
+
+                        val distance = "$format Km"
+
+                        itemView.placeDistance.text = distance
+                    }
+                }
+
+            //set open hour
+            val dateTime = Calendar.getInstance()
+            val time = dateTime.time
+            val currentTime = SimpleDateFormat("HH:mm").format(time)
+
+            val beginning = place.jamBuka
+            val end = place.jamTutup
+
+            if (currentTime in beginning..end) {
+                itemView.closeHour.text = "BUKA"
+                val open = itemView.closeHour.resources.getColor(colors.open)
+                itemView.closeHour.setTextColor(open)
+            } else {
+                val close = itemView.closeHour.resources.getColor(colors.close)
+                itemView.closeHour.setTextColor(close)
+                itemView.closeHour.text = "TUTUP"
+            }
 
             // Load image
             Glide.with(itemView.placeImage.context)
@@ -55,14 +123,12 @@ open class PlaceAdapter(query: Query, private val listener: OnPlaceSelectedListe
                 .into(itemView.placeImage)
 
             itemView.placeName.text = place.name
-            itemView.openHour.text = place.jamBuka
-            itemView.closeHour.text = place.jamTutup
-//            itemView.placePrice.text = place.hargaSiang
 
             // Click listener
             itemView.setOnClickListener {
                 listener?.onPlaceSelected(snapshot)
             }
         }
+
     }
 }

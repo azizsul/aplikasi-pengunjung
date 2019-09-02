@@ -9,4 +9,7 @@
     <color name="greyDisabled">#61000000</color>
     <color name="greyOld">#696969</color>
 
+    <color name="open">#50C878</color>
+    <color name="close">#DE1738</color>
+
 </resources>

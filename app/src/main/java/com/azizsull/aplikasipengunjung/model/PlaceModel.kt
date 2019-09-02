@@ -14,7 +14,8 @@ data class PlaceModel(
     val jamTutup: String = "",
     val facility: String = "",
     val noTelp: String = "",
-    val latLng: List<Double> = listOf(0.0, 0.0),
+    val lat: Double = 0.0,
+    val long: Double = 0.0,
     val images: ArrayList<String> = arrayListOf(PlaceImages().images)
 ) {
 

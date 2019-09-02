@@ -4,13 +4,18 @@
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:background="?attr/selectableItemBackground"
-	android:orientation="vertical"
-	android:padding="8dp">
+	android:orientation="vertical">
+
+	<FrameLayout
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/margin_5"
+		android:background="?attr/selectableItemBackground" />
 
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:orientation="horizontal">
+		android:orientation="horizontal"
+		android:padding="8dp">
 
 		<ImageView
 			android:id="@+id/placeImage"
@@ -21,74 +26,45 @@
 			android:src="@drawable/planetfutsal" />
 
 		<LinearLayout
-			android:layout_width="wrap_content"
-			android:layout_height="60dp"
-			android:paddingLeft="10dp"
-			android:orientation="vertical">
+			android:layout_weight="1"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			android:layout_marginStart="@dimen/margin_10">
 
 			<TextView
 				android:id="@+id/placeName"
 				style="@style/AppTheme.Title"
-				android:layout_width="200dp"
+				android:layout_width="match_parent"
+				android:layout_marginBottom="@dimen/margin_10"
 				android:layout_height="wrap_content"
-				android:maxLines="1"
 				tools:text="Planet Futsal" />
 
-		</LinearLayout>
-
-		<LinearLayout
-			android:layout_width="wrap_content"
-			android:layout_height="60dp"
-			android:layout_marginStart="@dimen/margin_10"
-			android:orientation="vertical">
 
 			<TextView
 				android:id="@+id/placeDistance"
 				style="@style/AppTheme.Body1"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_gravity="right"
 				android:textColor="@color/greySecondary"
+				android:textStyle="bold"
 				tools:text="1 Km" />
-
-			<LinearLayout
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content">
-
-				<TextView
-					android:id="@+id/openHour"
-					style="@style/AppTheme.Caption"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_marginTop="25dp"
-					android:gravity="center_vertical"
-					android:textColor="@color/greyDisabled"/>
-
-				<TextView
-					android:id="@+id/dash"
-					style="@style/AppTheme.Caption"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_marginTop="25dp"
-					android:gravity="center_vertical"
-					android:text="-"
-					android:layout_marginStart="2dp"
-					android:layout_marginEnd="2dp"
-					android:textColor="@color/greyDisabled"/>
-
-				<TextView
-					android:id="@+id/closeHour"
-					style="@style/AppTheme.Caption"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_marginTop="25dp"
-					android:gravity="center_vertical"
-					android:textColor="@color/greyDisabled"/>
-
-			</LinearLayout>
 		</LinearLayout>
 
+		<LinearLayout
+			android:gravity="end"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="@dimen/margin_10"
+			android:orientation="vertical">
 
+			<TextView
+				android:id="@+id/closeHour"
+				android:textStyle="bold"
+				style="@style/AppTheme.Caption"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="HOUR"/>
+		</LinearLayout>
 	</LinearLayout>
-
 </LinearLayout>

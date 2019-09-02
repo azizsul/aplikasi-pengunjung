@@ -116,6 +116,6 @@ abstract class FirestoreAdapter<VH : RecyclerView.ViewHolder>(private var query:
 
     companion object {
 
-        private const val TAG = "FirestoreAdapter"
+        internal const val TAG = "FirestoreAdapter"
     }
 }
