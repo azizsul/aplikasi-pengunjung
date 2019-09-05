@@ -41,6 +41,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback,
     private var mGoogleApiClient: GoogleApiClient? = null
     private var mLastLocation: Location? = null
     var mCurrLocationMarker: Marker? = null
+    var placeMarker: Marker? = null
     private var mCircle: Circle? = null
 
     private var radiusInMeters = 500.0
@@ -141,32 +142,23 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback,
         }
 
         //Place current location marker
-        val latLng =
-            LatLng(
-                location.latitude,
-                location.longitude
-            )
-
-        val placeLocation = LatLng(x, y)
-        val markerOptions =
-            MarkerOptions()
-        markerOptions.position(placeLocation)
-        markerOptions.title(name)
-        markerOptions.icon(
-            BitmapDescriptorFactory.defaultMarker(
-                BitmapDescriptorFactory.HUE_RED
-            )
-        )
-        mCurrLocationMarker = mMap!!.addMarker(markerOptions)
-
-        val addCircle: CircleOptions? =
-            CircleOptions().center(latLng).radius(radiusInMeters)
-                .fillColor(shadeColor).strokeColor(strokeColor).strokeWidth(0f)
+        val myLocation = LatLng(location.latitude,location.longitude)
+        val addCircle: CircleOptions? = CircleOptions().center(myLocation).radius(radiusInMeters).fillColor(shadeColor).strokeColor(strokeColor).strokeWidth(2f)
         mCircle = mMap!!.addCircle(addCircle)
 
-        //move map camera
-        mMap!!.moveCamera(CameraUpdateFactory.newLatLng(latLng))
-        mMap!!.animateCamera(CameraUpdateFactory.zoomTo(12f))
+        if (x != 0.0 && y != 0.0) {
+            val destinationLoc = LatLng(x, y)
+            val destinationMarkerOptions = MarkerOptions().position(destinationLoc).title(name)
+            mMap?.addMarker(destinationMarkerOptions)
+            try {
+                val bounds = LatLngBounds.builder().include(destinationLoc).include(myLocation).build()
+                mMap?.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 300))
+            } catch (ex: Exception) {
+//                Toast.makeText(activity, ex.localizedMessage, Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 12F))
+        }
 
         //stop location updates
         if (mGoogleApiClient != null) {
