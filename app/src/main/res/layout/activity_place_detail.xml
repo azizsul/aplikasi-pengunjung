@@ -1,162 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#E0E0E0">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="#E0E0E0">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+	<ScrollView
+		android:id="@+id/scrollView"
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.0"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/carousels">
 
-    <RelativeLayout
-        android:id="@+id/place_top_card"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:elevation="4dp">
+		<LinearLayout
+			android:id="@+id/linearLayout"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="0dp"
+			android:orientation="vertical"
+			android:padding="@dimen/margin_10">
 
-        <ImageView
-            android:id="@+id/placeImage"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:alpha="1.0"
-            android:scaleType="centerCrop"
-            tools:src="@drawable/planetfutsal"/>
+			<!--Nama Tempat Futsal-->
+			<TextView
+				android:id="@+id/tv_nama_lapangan"
+				style="@style/AppTheme.Title"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="8dp"
+				android:layout_marginTop="6dp"
+				android:layout_marginBottom="7dp"
+				android:textColor="@android:color/background_dark"
+				android:textStyle="bold"
+				tools:text="Planet Futsal" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_alignBottom="@+id/placeImage"
-            android:layout_marginBottom="0dp"
-            android:background="@drawable/gradient_up" />
+			<!--Alamat-->
+			<TextView
+				android:id="@+id/tv_alamat"
+				style="@style/AppTheme.Subheader"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginEnd="4dp"
+				android:drawableStart="@drawable/ic_place"
+				android:drawablePadding="5dp"
+				android:textColor="@color/greyOld"
+				tools:text="@string/text_alamat" />
 
-        <!-- Back button -->
-        <ImageView
-            android:id="@+id/restaurantButtonBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:background="?attr/selectableItemBackground"
-            app:srcCompat="@drawable/ic_close_white_24px"
-            android:layout_marginBottom="5dp"/>
+			<!--Info Jam Buka-->
+			<TextView
+				android:id="@+id/tv_jamBuka"
+				style="@style/AppTheme.Subheader"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:drawableStart="@drawable/ic_watch_black"
+				android:drawablePadding="5dp"
+				android:gravity="center_vertical"
+				android:textColor="@android:color/black"
+				android:textStyle="bold"
+				tools:text="08.00 - 24.00" />
 
+			<!--No Telp-->
+			<TextView
+				android:id="@+id/tv_noTelp"
+				style="@style/AppTheme.Subheader"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:drawableStart="@drawable/ic_phone"
+				android:drawablePadding="5dp"
+				android:gravity="center_vertical"
+				android:textColor="@android:color/black"
+				tools:text="(0274) 4477788" />
 
-    </RelativeLayout>
+			<!--Fasilitas-->
+			<TextView
+				android:id="@+id/tv_fasilitas"
+				style="@style/AppTheme.Subheader"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="1dp"
+				android:layout_marginTop="8dp"
+				android:layout_marginEnd="4dp"
+				android:drawableStart="@drawable/ic_more"
+				android:drawablePadding="5dp"
+				android:gravity="center_vertical"
+				android:textColor="@android:color/black"
+				tools:text="@string/fasilitas_default" />
 
-    <LinearLayout
-        android:paddingHorizontal="@dimen/cardview_default_radius"
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/place_top_card"
-        android:layout_marginTop="0dp"
-        android:orientation="vertical">
+			<!-- Lapangan -->
+			<androidx.recyclerview.widget.RecyclerView
+				android:id="@+id/recyclerFields"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="0dp"
+				android:background="@android:color/transparent"
+				tools:listitem="@layout/item_field" />
 
-        <!--Nama Tempat Futsal-->
-        <TextView
-            android:id="@+id/tv_nama_lapangan"
-            style="@style/AppTheme.Title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="7dp"
-            android:textColor="@android:color/background_dark"
-            android:textStyle="bold"
-            tools:text="Planet Futsal" />
+		</LinearLayout>
+	</ScrollView>
 
-        <!--Alamat-->
-        <TextView
-            android:id="@+id/tv_alamat"
-            style="@style/AppTheme.Subheader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tv_nama_lapangan"
-            android:layout_alignBottom="@+id/placeImage"
-            android:layout_marginLeft="-1dp"
-            android:layout_marginEnd="4dp"
-            android:drawableLeft="@drawable/ic_place"
-            android:drawablePadding="5dp"
-            android:textColor="@color/greyOld"
-            tools:text="@string/text_alamat" />
+	<com.glide.slider.library.SliderLayout
+		android:id="@+id/carousels"
+		android:layout_width="wrap_content"
+		android:layout_height="220dp"
+		app:layout_constraintBottom_toTopOf="@+id/scrollView"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
 
-        <!--Info Jam Buka-->
-        <TextView
-            android:id="@+id/tv_jamBuka"
-            style="@style/AppTheme.Subheader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tv_nama_lapangan"
-            android:layout_alignBottom="@+id/placeImage"
-            android:layout_marginLeft="0dp"
-            android:layout_marginTop="8dp"
-            android:drawableLeft="@drawable/ic_watch_black"
-            android:drawablePadding="5dp"
-            android:gravity="center_vertical"
-            android:textColor="@android:color/black"
-            android:textStyle="bold"
-            tools:text="08.00 - 24.00" />
+	<com.google.android.material.floatingactionbutton.FloatingActionButton
+		android:id="@+id/fabShowMaps"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginEnd="8dp"
+		android:layout_marginBottom="8dp"
+		app:layout_constraintBottom_toTopOf="@+id/scrollView"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="1.0"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="@+id/carousels"
+		app:layout_constraintVertical_bias="1.0"
+		app:srcCompat="@drawable/ic_map_white_24dp"
+		tools:ignore="MissingConstraints" />
 
-        <!--No Telp-->
-        <TextView
-            android:id="@+id/tv_noTelp"
-            style="@style/AppTheme.Subheader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tv_nama_lapangan"
-            android:layout_alignBottom="@+id/placeImage"
-            android:layout_marginLeft="1dp"
-            android:layout_marginTop="8dp"
-            android:drawableLeft="@drawable/ic_phone"
-            android:drawablePadding="5dp"
-            android:gravity="center_vertical"
-            android:textColor="@android:color/black"
-            tools:text="(0274) 4477788" />
+</androidx.constraintlayout.widget.ConstraintLayout>
 
-        <!--Fasilitas-->
-        <TextView
-            android:id="@+id/tv_fasilitas"
-            style="@style/AppTheme.Subheader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tv_nama_lapangan"
-            android:layout_alignBottom="@+id/placeImage"
-            android:layout_marginLeft="1dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="4dp"
-            android:drawableLeft="@drawable/ic_more"
-            android:drawablePadding="5dp"
-            android:gravity="center_vertical"
-            android:textColor="@android:color/black"
-            tools:text="@string/fasilitas_default" />
-    </LinearLayout>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabShowMaps"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/linearLayout"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
-        app:srcCompat="@drawable/ic_map_white_24dp" />
-
-    <!-- Lapangan -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerFields"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout"
-        android:layout_marginTop="0dp"
-        android:background="@android:color/transparent"
-        android:clipToPadding="false"
-        android:paddingTop="28dp"
-        android:paddingBottom="16dp"
-        tools:listitem="@layout/item_field" />
-
-    </RelativeLayout>
-
-</ScrollView>

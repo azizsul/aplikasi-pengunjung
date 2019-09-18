@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.azizsull.aplikasipengunjung.model.PlaceModel
 import com.google.firebase.firestore.Query
+import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.dialog_filters.*
 import kotlinx.android.synthetic.main.dialog_filters.view.buttonCancel
 import kotlinx.android.synthetic.main.dialog_filters.view.buttonSearch
@@ -48,11 +49,11 @@ class FilterDialogFragment : DialogFragment() {
             if (getString(R.string.all_field_type) == selected) {
                 return PlaceModel.FIELD_NAME
             }
-            if (getString(R.string.sort_by_synthetic) == selected) {
+            return if (getString(R.string.sort_by_synthetic) == selected) {
                 return PlaceModel.FIELD_PRICE
-            }
-            return if (getString(R.string.sort_by_vinyl) == selected) {
-                PlaceModel.FIELD_POPULARITY
+//            }
+//            return if (getString(R.string.sort_by_vinyl) == selected) {
+//                PlaceModel.FIELD_POPULARITY
             } else {
                 null
             }
@@ -104,7 +105,7 @@ class FilterDialogFragment : DialogFragment() {
         return rootView
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
 
         if (context is FilterListener) {
@@ -114,7 +115,7 @@ class FilterDialogFragment : DialogFragment() {
 
     override fun onResume() {
         super.onResume()
-        dialog.window?.setLayout(
+        dialog!!.window?.setLayout(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT)
     }
