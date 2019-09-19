@@ -40,20 +40,20 @@ class Filters {
         if (price > 0) {
             desc.append(" for ")
             desc.append("<b>")
-            desc.append(PlaceUtil.getPriceString(price))
+//            desc.append(PlaceUtil.getPriceString(price))
             desc.append("</b>")
         }
 
         return desc.toString()
     }
 
-    fun getOrderDescription(context: Context): String {
-        return when (sortBy) {
-            PlaceModel.FIELD_PRICE -> context.getString(R.string.sorted_by_price)
-            PlaceModel.FIELD_POPULARITY -> context.getString(R.string.sorted_by_popularity)
-            else -> context.getString(R.string.sorted_by_alphabet)
-        }
-    }
+//    fun getOrderDescription(context: Context): String {
+//        return when (sortBy) {
+//            PlaceModel.FIELD_PRICE -> context.getString(R.string.sorted_by_price)
+//            PlaceModel.FIELD_POPULARITY -> context.getString(R.string.sorted_by_popularity)
+//            else -> context.getString(R.string.sorted_by_alphabet)
+//        }
+//    }
 
     companion object {
 

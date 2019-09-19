@@ -12,7 +12,9 @@ import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
 import android.text.Html
+import android.view.Menu
 import android.view.View
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
@@ -21,6 +23,7 @@ import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.azizsull.aplikasipengunjung.adapter.PlaceAdapter
+import com.azizsull.aplikasipengunjung.model.PlaceModel
 import com.azizsull.aplikasipengunjung.viewmodel.MainActivityViewModel
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.ErrorCodes
@@ -34,10 +37,12 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.ArrayList
 
 class MainActivity : AppCompatActivity(),
     FilterDialogFragment.FilterListener,
-    PlaceAdapter.OnPlaceSelectedListener {
+    PlaceAdapter.OnPlaceSelectedListener, SearchView.OnQueryTextListener,
+    androidx.appcompat.widget.SearchView.OnQueryTextListener {
 
     val PERMISSION_ID = 42
     lateinit var mFusedLocationClient: FusedLocationProviderClient
@@ -54,6 +59,8 @@ class MainActivity : AppCompatActivity(),
     private lateinit var filterDialog: FilterDialogFragment
     lateinit var adapter: PlaceAdapter
 
+    private val arraylist: ArrayList<PlaceModel> = ArrayList()
+
     private lateinit var viewModel: MainActivityViewModel
 
     @SuppressLint("MissingPermission")
@@ -66,7 +73,7 @@ class MainActivity : AppCompatActivity(),
         // View model
         viewModel = ViewModelProviders.of(this).get(MainActivityViewModel::class.java)
 
-        // Enable Firestore logging
+                // Enable Firestore logging
         FirebaseFirestore.setLoggingEnabled(true)
 
         // Firestore
@@ -78,7 +85,7 @@ class MainActivity : AppCompatActivity(),
             .limit(LIMIT.toLong())
 
         // RecyclerView
-        adapter = object : PlaceAdapter(query, this@MainActivity) {
+        adapter = object : PlaceAdapter(this@MainActivity, query, this@MainActivity) {
             override fun onDataChanged() {
                 // Show/hide content if the query returns empty.
                 if (itemCount == 0) {
@@ -112,6 +119,30 @@ class MainActivity : AppCompatActivity(),
 
         getLastLocation()
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.main, menu)
+
+//        val searchItem = menu.findItem(R.id.search_city)
+//        svSearch = searchItem.actionView as SearchView
+//        svSearch.setQueryHint("Search View Hint")
+
+        svSearch.setOnQueryTextListener(object :
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                return false
+            }
+
+            override fun onQueryTextSubmit(query: String): Boolean {
+                // task HERE
+                return false
+            }
+
+        })
+
+        return true
     }
 
     public override fun onStart() {
@@ -200,7 +231,7 @@ class MainActivity : AppCompatActivity(),
 
         // Set header
         textCurrentSearch.text = Html.fromHtml(filters.getSearchDescription())
-        textCurrentSortBy.text = filters.getOrderDescription(this)
+//        textCurrentSortBy.text = filters.getOrderDescription(this)
 
         // Save filters
         viewModel.filters = filters
@@ -323,6 +354,17 @@ class MainActivity : AppCompatActivity(),
         }
     }
 
+    override fun onQueryTextSubmit(query: String): Boolean {
+
+        return false
+    }
+
+    override fun onQueryTextChange(newText: String): Boolean {
+        adapter.setQuery(query)
+//        adapter.filter(newText)
+        return false
+    }
+
     companion object {
 
         private const val TAG = "MainActivity"
@@ -330,6 +372,9 @@ class MainActivity : AppCompatActivity(),
         private const val RC_SIGN_IN = 9001
 
         private const val LIMIT = 50
+
+        var placeLists = ArrayList<PlaceModel>()
+
 
         /**
          * GeoFire attr

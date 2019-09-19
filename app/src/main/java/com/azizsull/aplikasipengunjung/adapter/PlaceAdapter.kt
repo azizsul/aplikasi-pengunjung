@@ -1,10 +1,12 @@
 package com.azizsull.aplikasipengunjung.adapter
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.azizsull.aplikasipengunjung.MainActivity
 import com.azizsull.aplikasipengunjung.R
 import com.azizsull.aplikasipengunjung.model.PlaceModel
 import com.bumptech.glide.Glide
@@ -26,8 +28,18 @@ import com.azizsull.aplikasipengunjung.R.color as colors
 /**
  * RecyclerView adapter for a list of Restaurants.
  */
-abstract class PlaceAdapter(query: Query, private val listener: OnPlaceSelectedListener) :
+abstract class PlaceAdapter(
+    mContext: Context, query: Query, private val listener: OnPlaceSelectedListener) :
     FirestoreAdapter<PlaceAdapter.ViewHolder>(query) {
+
+    internal var inflater: LayoutInflater
+    private val arraylist: ArrayList<PlaceModel>
+
+    init {
+        inflater = LayoutInflater.from(mContext)
+        this.arraylist = ArrayList()
+        this.arraylist.addAll(MainActivity.placeLists)
+    }
 
     interface OnPlaceSelectedListener {
 
@@ -130,5 +142,9 @@ abstract class PlaceAdapter(query: Query, private val listener: OnPlaceSelectedL
             }
         }
 
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
     }
 }

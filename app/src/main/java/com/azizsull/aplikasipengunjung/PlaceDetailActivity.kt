@@ -13,17 +13,40 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.azizsull.aplikasipengunjung.model.FieldModel
 import com.azizsull.aplikasipengunjung.model.PlaceModel
-import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.request.RequestOptions
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.glide.slider.library.Animations.DescriptionAnimation
+import com.glide.slider.library.SliderLayout
+import com.glide.slider.library.SliderTypes.BaseSliderView
+import com.glide.slider.library.SliderTypes.TextSliderView
+import com.glide.slider.library.Tricks.ViewPagerEx
 import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.*
+import com.google.firebase.firestore.EventListener
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_place_detail.*
+import java.util.*
 
 
-class PlaceDetailActivity : AppCompatActivity(), EventListener<DocumentSnapshot> {
+class PlaceDetailActivity : AppCompatActivity(), EventListener<DocumentSnapshot>, BaseSliderView.OnSliderClickListener,
+    ViewPagerEx.OnPageChangeListener {
+    override fun onPageScrollStateChanged(state: Int) {
+
+    }
+
+    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+
+    }
+
+    override fun onPageSelected(position: Int) {
+
+    }
+
+    override fun onSliderClick(slider: BaseSliderView?) {
+
+    }
 
     inner class FieldViewHolder internal constructor(private val view: View) :
         RecyclerView.ViewHolder(view) {
@@ -72,6 +95,8 @@ class PlaceDetailActivity : AppCompatActivity(), EventListener<DocumentSnapshot>
 
     lateinit var firestore: FirebaseFirestore
 
+    var requestOptions = RequestOptions()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_place_detail)
@@ -117,6 +142,7 @@ class PlaceDetailActivity : AppCompatActivity(), EventListener<DocumentSnapshot>
 
     }
 
+    @SuppressLint("CheckResult")
     private fun onPlaceLoaded(placeModel: PlaceModel) {
 
         tv_nama_lapangan.text = placeModel.name
@@ -125,11 +151,32 @@ class PlaceDetailActivity : AppCompatActivity(), EventListener<DocumentSnapshot>
         tv_jamBuka.text = "${placeModel.jamBuka} - ${placeModel.jamTutup}"
         tv_fasilitas.text = placeModel.facility
 
+        val list = placeModel.images
+        requestOptions.centerCrop()
+
         // Background image
-        Glide.with(placeImage.context)
-            .load(placeModel.images[0])
-            .apply(RequestOptions())
-            .into(placeImage)
+        for (i in 0 until list.size) {
+            val textSliderView =
+                TextSliderView(this)
+            // initialize a SliderLayout
+
+
+            textSliderView
+                .image(list[i])
+                .description("")
+                .setRequestOption(requestOptions)
+                .setProgressBarVisible(false)
+                .setOnSliderClickListener(this)
+            //add your extra information
+
+            textSliderView.bundle(Bundle())
+            textSliderView.bundle.putString("extra", list[i])
+            carousels.addSlider(textSliderView)
+        }
+        carousels.setPresetTransformer(SliderLayout.Transformer.Default)
+        carousels.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom)
+        carousels.setDuration(4000)
+        carousels.addOnPageChangeListener(this)
 
         fabShowMaps.setOnClickListener {
             val intent = Intent(this, MapsActivity::class.java)

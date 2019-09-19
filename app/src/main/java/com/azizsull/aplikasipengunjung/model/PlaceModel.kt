@@ -21,10 +21,8 @@ data class PlaceModel(
 
     companion object {
 
-        const val FIELD_CITY = "alamat"
-        const val FIELD_CATEGORY = "jamBuka"
         const val FIELD_PRICE = "price"
-        const val FIELD_POPULARITY = "jamBuka"
+        const val OPEN_NOW = "jamBuka"
         const val FIELD_NAME = "name"
     }
 }
