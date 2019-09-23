@@ -12,7 +12,6 @@ import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
 import android.text.Html
-import android.view.Menu
 import android.view.View
 import android.widget.SearchView
 import android.widget.Toast
@@ -29,26 +28,22 @@ import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.ErrorCodes
 import com.firebase.ui.auth.IdpResponse
 import com.google.android.gms.location.*
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.FirebaseFirestoreException
-import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.*
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.ArrayList
+import kotlinx.android.synthetic.main.activity_place_detail.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity(),
     FilterDialogFragment.FilterListener,
-    PlaceAdapter.OnPlaceSelectedListener, SearchView.OnQueryTextListener,
-    androidx.appcompat.widget.SearchView.OnQueryTextListener {
+    PlaceAdapter.OnPlaceSelectedListener {
 
     val PERMISSION_ID = 42
     lateinit var mFusedLocationClient: FusedLocationProviderClient
-
-    val latitude = "longitude"
-    val longitude = "longitude"
 
     var lat = 0.0
     var long = 0.0
@@ -58,8 +53,6 @@ class MainActivity : AppCompatActivity(),
 
     private lateinit var filterDialog: FilterDialogFragment
     lateinit var adapter: PlaceAdapter
-
-    private val arraylist: ArrayList<PlaceModel> = ArrayList()
 
     private lateinit var viewModel: MainActivityViewModel
 
@@ -73,7 +66,7 @@ class MainActivity : AppCompatActivity(),
         // View model
         viewModel = ViewModelProviders.of(this).get(MainActivityViewModel::class.java)
 
-                // Enable Firestore logging
+        // Enable Firestore logging
         FirebaseFirestore.setLoggingEnabled(true)
 
         // Firestore
@@ -119,30 +112,59 @@ class MainActivity : AppCompatActivity(),
 
         getLastLocation()
 
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main, menu)
-
-//        val searchItem = menu.findItem(R.id.search_city)
-//        svSearch = searchItem.actionView as SearchView
-//        svSearch.setQueryHint("Search View Hint")
-
-        svSearch.setOnQueryTextListener(object :
-            androidx.appcompat.widget.SearchView.OnQueryTextListener {
-
-            override fun onQueryTextChange(newText: String): Boolean {
+        svSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(p0: String?): Boolean {
                 return false
             }
 
-            override fun onQueryTextSubmit(query: String): Boolean {
-                // task HERE
+            override fun onQueryTextChange(p0: String): Boolean {
+
+                val results = ArrayList<PlaceModel>()
+                for (model in placeLists) {
+                    if (model.getName().toLowerCase(Locale.getDefault()).contains(p0.toLowerCase(Locale.getDefault()))) {
+                        results.add(model)
+                    }
+                }
+
+                updateListUsers(p0)
                 return false
             }
-
         })
 
-        return true
+    }
+
+    private fun updateListUsers(text: String) {
+
+        // Get ${LIMIT} restaurants
+        val setQuery = firestore.collection("Lapangan").whereEqualTo("name".toLowerCase(Locale.getDefault()), text.toLowerCase(
+            Locale.getDefault()))
+
+        val recyclerAdapter = object : PlaceAdapter(this@MainActivity, setQuery, this@MainActivity) {
+            override fun onDataChanged() {
+                // Show/hide content if the query returns empty.
+                if (itemCount == 0) {
+                    recyclerPlace.visibility = View.GONE
+                    viewEmpty.visibility = View.VISIBLE
+                } else {
+                    recyclerPlace.visibility = View.VISIBLE
+                    viewEmpty.visibility = View.GONE
+                }
+            }
+
+            override fun onError(e: FirebaseFirestoreException) {
+                // Show a snackbar on errors
+                Snackbar.make(
+                    findViewById(android.R.id.content),
+                    "Error: check logs for info.", Snackbar.LENGTH_LONG
+                ).show()
+            }
+        }
+
+        val layoutManager = LinearLayoutManager(applicationContext)
+        recyclerPlace.isNestedScrollingEnabled = false
+        recyclerPlace.adapter = recyclerAdapter
+        recyclerPlace.layoutManager = layoutManager
+        recyclerAdapter.notifyDataSetChanged()
     }
 
     public override fun onStart() {
@@ -161,7 +183,7 @@ class MainActivity : AppCompatActivity(),
         super.onStop()
         adapter.stopListening()
 
-        progressLoading.visibility = View.VISIBLE
+        progressLoading.visibility = View.GONE
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -317,7 +339,8 @@ class MainActivity : AppCompatActivity(),
     }
 
     private fun isLocationEnabled(): Boolean {
-        val locationManager: LocationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val locationManager: LocationManager =
+            getSystemService(Context.LOCATION_SERVICE) as LocationManager
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
             LocationManager.NETWORK_PROVIDER
         )
@@ -341,28 +364,24 @@ class MainActivity : AppCompatActivity(),
     private fun requestPermissions() {
         ActivityCompat.requestPermissions(
             this,
-            arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION),
+            arrayOf(
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ),
             PERMISSION_ID
         )
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
         if (requestCode == PERMISSION_ID) {
             if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                 getLastLocation()
             }
         }
-    }
-
-    override fun onQueryTextSubmit(query: String): Boolean {
-
-        return false
-    }
-
-    override fun onQueryTextChange(newText: String): Boolean {
-        adapter.setQuery(query)
-//        adapter.filter(newText)
-        return false
     }
 
     companion object {

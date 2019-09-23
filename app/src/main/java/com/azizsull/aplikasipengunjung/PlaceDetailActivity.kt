@@ -145,7 +145,7 @@ class PlaceDetailActivity : AppCompatActivity(), EventListener<DocumentSnapshot>
     @SuppressLint("CheckResult")
     private fun onPlaceLoaded(placeModel: PlaceModel) {
 
-        tv_nama_lapangan.text = placeModel.name
+        tv_nama_lapangan.text = placeModel.getName()
         tv_alamat.text = placeModel.alamat
         tv_noTelp.text = placeModel.noTelp
         tv_jamBuka.text = "${placeModel.jamBuka} - ${placeModel.jamTutup}"
@@ -160,32 +160,26 @@ class PlaceDetailActivity : AppCompatActivity(), EventListener<DocumentSnapshot>
                 TextSliderView(this)
             // initialize a SliderLayout
 
-
             textSliderView
                 .image(list[i])
-                .description("")
                 .setRequestOption(requestOptions)
                 .setProgressBarVisible(false)
                 .setOnSliderClickListener(this)
             //add your extra information
 
             textSliderView.bundle(Bundle())
-            textSliderView.bundle.putString("extra", list[i])
             carousels.addSlider(textSliderView)
         }
-        carousels.setPresetTransformer(SliderLayout.Transformer.Default)
+        carousels.setPresetTransformer(SliderLayout.Transformer.Fade)
         carousels.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom)
         carousels.setDuration(4000)
         carousels.addOnPageChangeListener(this)
 
         fabShowMaps.setOnClickListener {
             val intent = Intent(this, MapsActivity::class.java)
-            intent.putExtra(MapsActivity().extraName, placeModel.name)
+            intent.putExtra(MapsActivity().extraName, placeModel.getName())
             intent.putExtra(MapsActivity().extraLat, placeModel.lat.toString())
             intent.putExtra(MapsActivity().extraLong, placeModel.long.toString())
-            println(placeModel.name)
-            println(placeModel.lat)
-            println(placeModel.long)
 
             startActivity(intent)
         }

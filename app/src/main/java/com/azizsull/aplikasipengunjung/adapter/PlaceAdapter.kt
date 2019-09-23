@@ -20,6 +20,7 @@ import kotlinx.android.synthetic.main.item_place.view.*
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.cos
 import kotlin.math.sqrt
 import com.azizsull.aplikasipengunjung.R.color as colors
@@ -29,16 +30,15 @@ import com.azizsull.aplikasipengunjung.R.color as colors
  * RecyclerView adapter for a list of Restaurants.
  */
 abstract class PlaceAdapter(
-    mContext: Context, query: Query, private val listener: OnPlaceSelectedListener) :
+    mContext: Context, query: Query, private val listener: OnPlaceSelectedListener
+) :
     FirestoreAdapter<PlaceAdapter.ViewHolder>(query) {
 
-    internal var inflater: LayoutInflater
-    private val arraylist: ArrayList<PlaceModel>
+    internal var inflater: LayoutInflater = LayoutInflater.from(mContext)
+    private var arrayList: ArrayList<PlaceModel> = ArrayList()
 
     init {
-        inflater = LayoutInflater.from(mContext)
-        this.arraylist = ArrayList()
-        this.arraylist.addAll(MainActivity.placeLists)
+        this.arrayList.addAll(MainActivity.placeLists)
     }
 
     interface OnPlaceSelectedListener {
@@ -134,7 +134,7 @@ abstract class PlaceAdapter(
                 .apply(RequestOptions().centerInside())
                 .into(itemView.placeImage)
 
-            itemView.placeName.text = place.name
+            itemView.placeName.text = place.getName()
 
             // Click listener
             itemView.setOnClickListener {
@@ -147,4 +147,20 @@ abstract class PlaceAdapter(
     override fun getItemId(position: Int): Long {
         return position.toLong()
     }
+
+    fun filter(text: String) {
+
+        var charText = text
+        charText = charText.toLowerCase(Locale.getDefault())
+        arrayList.clear()
+        for (wp in arrayList) {
+            if (wp.getName().toLowerCase(Locale.getDefault()).contains(charText)) {
+                arrayList.add(wp)
+            }
+
+        }
+
+        notifyDataSetChanged()
+    }
+
 }
