@@ -8,7 +8,7 @@ import com.google.firebase.firestore.IgnoreExtraProperties
 @IgnoreExtraProperties
 data class PlaceModel(
     val placeId: String = "",
-    val name: String = "",
+    private  val name: String = "",
     val alamat: String ="",
     val jamBuka: String = "",
     val jamTutup: String = "",
@@ -24,6 +24,10 @@ data class PlaceModel(
         const val FIELD_PRICE = "price"
         const val OPEN_NOW = "jamBuka"
         const val FIELD_NAME = "name"
+    }
+
+    fun getName(): String {
+        return  this.name
     }
 }
 
