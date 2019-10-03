@@ -1,106 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical">
+	android:layout_height="wrap_content"
+	android:background="@color/bgHome"
+	android:orientation="vertical">
 
-	<View
-		style="@style/AppTheme.Divider"/>
+	<androidx.cardview.widget.CardView
 
-	<LinearLayout
-		android:orientation="horizontal"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:paddingLeft="16dp"
-		android:paddingRight="16dp">
+		android:layout_height="90dp"
+		android:layout_marginBottom="8dp"
+		android:background="@android:color/white"
+		app:cardCornerRadius="6dp"
+		android:outlineSpotShadowColor="@android:color/darker_gray"
+		app:cardElevation="1dp"
+		android:layout_marginStart="8dp"
+		android:layout_marginEnd="8dp"
+		tools:ignore="UnusedAttribute">
+
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
 
 			<TextView
 				android:id="@+id/fieldName"
-				android:layout_gravity="center"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
+				android:layout_centerVertical="true"
+				android:layout_marginStart="@dimen/margin_5"
+				android:background="@drawable/outline_stroke_ouval"
 				android:textStyle="bold"
-				android:textSize="25dp"
+				android:textSize="20sp"
 				android:textColor="@android:color/black"
 				tools:text="A"/>
 
-		<LinearLayout
-			android:layout_weight="1"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:orientation="vertical"
-			android:layout_marginStart="@dimen/margin_10"
-			android:layout_gravity="center_vertical">
-
 			<LinearLayout
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:orientation="horizontal"
-				android:layout_marginBottom="@dimen/margin_10">
+				android:layout_toEndOf="@id/fieldName"
+				android:layout_centerVertical="true"
+				android:layout_marginStart="@dimen/default_margin"
+				android:orientation="vertical">
 
-				<ImageView
-					app:srcCompat="@drawable/ic_money_black"
-					android:layout_width="20dp"
-					android:layout_height="20dp"/>
-
-				<TextView
-					android:id="@+id/dayPrice"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:text="Siang"
-					android:gravity="center_vertical"
-					android:drawablePadding="5dp"/>
-
-			</LinearLayout>
-
-			<LinearLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:orientation="horizontal">
-
-
-				<ImageView
-					app:srcCompat="@drawable/ic_money_black"
-					android:layout_width="20dp"
-					android:layout_height="20dp"/>
-
-				<TextView
-					android:id="@+id/nightPrice"
+				<LinearLayout
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Malam"
-					android:gravity="center_vertical"
-					android:drawablePadding="5dp"/>
+					android:layout_marginBottom="@dimen/margin_5">
+
+					<TextView
+						android:layout_width="88dp"
+						android:layout_height="wrap_content"
+						android:text="@string/harga_siang"/>
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="@string/titik2"
+						android:layout_marginEnd="@dimen/margin_5"/>
+
+					<TextView
+						android:id="@+id/dayPrice"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="@string/_100_000"/>
+
+				</LinearLayout>
+
+				<LinearLayout
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="@dimen/margin_5">
+
+					<TextView
+						android:layout_width="88dp"
+						android:layout_height="wrap_content"
+						android:text="@string/harga_malam"/>
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="@string/titik2"
+						android:layout_marginEnd="@dimen/margin_5"/>
+
+					<TextView
+						android:id="@+id/nightPrice"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						tools:text="150.000"/>
+
+				</LinearLayout>
 
 			</LinearLayout>
 
-		</LinearLayout>
-
-		<LinearLayout
-			android:layout_gravity="center_vertical"
-			android:orientation="horizontal"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content">
-
 			<ImageView
-				android:layout_marginLeft="@dimen/margin_10"
-				android:layout_width="20dp"
-				app:srcCompat="@drawable/futsalfield"
-				android:layout_height="20dp"/>
+				style="@style/AppTheme.FilterIconListField"
+				android:tint="@color/greySecondary"
+				android:layout_marginTop="18dp"
+				android:layout_toStartOf="@id/fieldType"
+				app:srcCompat="@drawable/futsalfield" />
 
 			<TextView
 				android:id="@+id/fieldType"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_marginLeft="@dimen/margin_10"
-				tools:text="Vinyl"
-				android:textAlignment="textEnd"/>
+				android:layout_alignParentEnd="true"
+				android:layout_marginTop="@dimen/margin_20"
+				android:layout_marginEnd="@dimen/margin_5"
+				tools:text="Vinyl"/>
 
-		</LinearLayout>
 
-	</LinearLayout>
+		</RelativeLayout>
+
+
+	</androidx.cardview.widget.CardView>
+
 
 </LinearLayout>
 

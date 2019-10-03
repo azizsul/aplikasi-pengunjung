@@ -9,13 +9,17 @@
     <color name="greyDisabled">#61000000</color>
     <color name="greyOld">#696969</color>
 
-    <color name="open">#50C878</color>
-    <color name="close">#DE1738</color>
+    <color name="open">#DE1738</color>
+
+    <color name="close">#50C878</color>
 
     <color name="textPrimary">#212121</color>
     <color name="textSecondary">#757575</color>
     <color name="textIcons">#FFFFFF</color>
     <color name="colorDivider">#BDBDBD</color>
     <color name="colorHighlight">#B6B6B6</color>
+    <color name="bgHome">#DAFFF9</color>
+    <color name="bgSearch">#E5E7E9</color>
+
 
 </resources>

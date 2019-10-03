@@ -13,11 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.azizsull.aplikasipengunjung.model.FieldModel
 import com.azizsull.aplikasipengunjung.model.PlaceModel
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.request.RequestOptions
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
-import com.glide.slider.library.Animations.DescriptionAnimation
 import com.glide.slider.library.SliderLayout
 import com.glide.slider.library.SliderTypes.BaseSliderView
 import com.glide.slider.library.SliderTypes.TextSliderView
@@ -27,7 +25,6 @@ import com.google.firebase.firestore.*
 import com.google.firebase.firestore.EventListener
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_place_detail.*
-import java.util.*
 
 
 class PlaceDetailActivity : AppCompatActivity(), EventListener<DocumentSnapshot>, BaseSliderView.OnSliderClickListener,
@@ -52,14 +49,14 @@ class PlaceDetailActivity : AppCompatActivity(), EventListener<DocumentSnapshot>
         RecyclerView.ViewHolder(view) {
         @SuppressLint("SetTextI18n")
         internal fun setFieldName(fieldName: String, fieldType: String, day: Int, night: Int) {
-            val name = view.findViewById<TextView>(R.id.fieldName)
+            val kodeLapangan = view.findViewById<TextView>(R.id.fieldName)
             val jenis = view.findViewById<TextView>(R.id.fieldType)
-            val siang = view.findViewById<TextView>(R.id.dayPrice)
-            val malam = view.findViewById<TextView>(R.id.nightPrice)
-            name.text = "Lap. $fieldName"
+            val hargaSiang = view.findViewById<TextView>(R.id.dayPrice)
+            val hargaMalam = view.findViewById<TextView>(R.id.nightPrice)
+            kodeLapangan.text = "Lap. $fieldName"
             jenis.text = fieldType
-            siang.text = "Siang: $day"
-            malam.text = "Malam: $night"
+            hargaSiang.text = "Rp.$day"
+            hargaMalam.text = "Rp.$night"
 
         }
     }
@@ -72,7 +69,7 @@ class PlaceDetailActivity : AppCompatActivity(), EventListener<DocumentSnapshot>
             fieldModel: FieldModel
         ) {
             fieldViewHolder.setFieldName(
-                fieldModel.name,
+                fieldModel.kodeLapangan,
                 fieldModel.jenis,
                 fieldModel.hargaSiang,
                 fieldModel.hargaMalam
@@ -95,12 +92,18 @@ class PlaceDetailActivity : AppCompatActivity(), EventListener<DocumentSnapshot>
 
     lateinit var firestore: FirebaseFirestore
 
-    var requestOptions = RequestOptions()
+    private var requestOptions = RequestOptions()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_place_detail)
-        setSupportActionBar(toolbar)
+
+        iv_backToHome.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
         FirebaseApp.initializeApp(this)
 
         val placesId = intent.extras?.getString(KEY_PLACE_ID)
@@ -112,10 +115,10 @@ class PlaceDetailActivity : AppCompatActivity(), EventListener<DocumentSnapshot>
         firestore = FirebaseFirestore.getInstance()
 
         // Get reference to the restaurant
-        placeRef = firestore.collection("Lapangan").document(placesId)
+        placeRef = firestore.collection("tempatFutsal").document(placesId)
 
-        val query = reference.collection("Lapangan").document(placesId).collection("listLapangan")
-            .orderBy("name")
+        val query = reference.collection("tempatFutsal").document(placesId).collection("listLapangan")
+            .orderBy("kodeLapangan")
         val options =
             FirestoreRecyclerOptions.Builder<FieldModel>().setQuery(query, FieldModel::class.java)
                 .build()
@@ -142,16 +145,16 @@ class PlaceDetailActivity : AppCompatActivity(), EventListener<DocumentSnapshot>
 
     }
 
-    @SuppressLint("CheckResult")
+    @SuppressLint("CheckResult", "SetTextI18n")
     private fun onPlaceLoaded(placeModel: PlaceModel) {
 
         tv_nama_lapangan.text = placeModel.getName()
         tv_alamat.text = placeModel.alamat
         tv_noTelp.text = placeModel.noTelp
         tv_jamBuka.text = "${placeModel.jamBuka} - ${placeModel.jamTutup}"
-        tv_fasilitas.text = placeModel.facility
+        tv_fasilitas.text = placeModel.fasilitas
 
-        val list = placeModel.images
+        val list = placeModel.gambar
         requestOptions.centerCrop()
 
         // Background image
@@ -178,8 +181,8 @@ class PlaceDetailActivity : AppCompatActivity(), EventListener<DocumentSnapshot>
         fabShowMaps.setOnClickListener {
             val intent = Intent(this, MapsActivity::class.java)
             intent.putExtra(MapsActivity().extraName, placeModel.getName())
-            intent.putExtra(MapsActivity().extraLat, placeModel.lat.toString())
-            intent.putExtra(MapsActivity().extraLong, placeModel.long.toString())
+            intent.putExtra(MapsActivity().extraLat, placeModel.latitude.toString())
+            intent.putExtra(MapsActivity().extraLong, placeModel.longitude.toString())
 
             startActivity(intent)
         }

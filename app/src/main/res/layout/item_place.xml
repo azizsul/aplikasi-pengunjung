@@ -1,70 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:background="?attr/selectableItemBackground"
+	android:background="@color/bgHome"
 	android:orientation="vertical">
 
-	<FrameLayout
+	<androidx.cardview.widget.CardView
 		android:layout_width="match_parent"
-		android:layout_height="@dimen/margin_5"
-		android:background="?attr/selectableItemBackground" />
+		android:layout_height="120dp"
+		android:layout_marginStart="6dp"
+		android:layout_marginEnd="6dp"
+		android:layout_marginBottom="8dp"
+		android:background="@android:color/white"
+		android:outlineAmbientShadowColor="@android:color/darker_gray"
+		app:cardCornerRadius="6dp"
+		app:cardElevation="1dp"
+		tools:targetApi="p">
 
-	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:orientation="horizontal"
-		android:padding="8dp">
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
 
-		<ImageView
-			android:id="@+id/placeImage"
-			android:layout_width="60dp"
-			android:layout_height="60dp"
-			android:background="#757575"
-			android:scaleType="centerCrop"
-			android:src="@drawable/planetfutsal" />
-
-		<LinearLayout
-			android:layout_weight="1"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:orientation="vertical"
-			android:layout_marginStart="@dimen/margin_10">
+			<ImageView
+				android:id="@+id/placeImage"
+				android:layout_width="85dp"
+				android:layout_height="100dp"
+				android:layout_centerVertical="true"
+				android:layout_marginStart="@dimen/margin_5"
+				android:background="@drawable/bg_image_item"
+				android:contentDescription="@string/fototempatfutsal"
+				android:src="@drawable/planetfutsal" />
 
 			<TextView
 				android:id="@+id/placeName"
 				style="@style/AppTheme.Title"
-				android:layout_width="match_parent"
-				android:layout_marginBottom="@dimen/margin_10"
+				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
+				android:layout_marginStart="@dimen/default_margin"
+				android:layout_marginTop="8dp"
+				android:layout_toEndOf="@id/placeImage"
 				tools:text="Planet Futsal" />
 
+			<TextView
+				android:id="@+id/tv_jenis_lapangan"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="@dimen/default_margin"
+				android:layout_above="@id/layout_range_harga"
+				android:layout_marginBottom="@dimen/value3dp"
+				android:layout_toEndOf="@id/placeImage"
+				android:layout_marginTop="@dimen/default_margin"
+				android:textSize="@dimen/huruf12"
+				tools:text="Vinyl, Sintetis" />
+
+			<RelativeLayout
+				android:id="@+id/layout_range_harga"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_above="@id/placeDistance"
+				android:layout_toEndOf="@id/placeImage"
+				android:layout_marginBottom="@dimen/value3dp"
+				android:layout_marginStart="@dimen/default_margin">
+
+				<TextView
+					android:id="@+id/Rp1"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textSize="@dimen/huruf12"
+					android:textColor="@color/design_default_color_primary"
+					android:textStyle="bold"
+					android:text="@string/rp"/>
+
+				<TextView
+					android:id="@+id/tv_harga_terendah"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_toEndOf="@id/Rp1"
+					android:textSize="@dimen/huruf12"
+					android:textColor="@color/design_default_color_primary"
+					android:textStyle="bold"
+					tools:text="80000" />
+
+				<TextView
+					android:id="@+id/strip"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="@dimen/margin_5"
+					android:layout_marginEnd="@dimen/margin_5"
+					android:layout_toEndOf="@id/tv_harga_terendah"
+					android:textSize="@dimen/huruf12"
+					android:textColor="@color/design_default_color_primary"
+					android:textStyle="bold"
+					android:text="@string/strip"/>
+
+				<TextView
+					android:id="@+id/Rp2"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_toEndOf="@id/strip"
+					android:textSize="@dimen/huruf12"
+					android:textColor="@color/design_default_color_primary"
+					android:textStyle="bold"
+					android:text="@string/rp"/>
+
+				<TextView
+					android:id="@+id/tv_harga_tertinggi"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_toEndOf="@id/Rp2"
+					android:textSize="@dimen/huruf12"
+					android:textColor="@color/design_default_color_primary"
+					android:textStyle="bold"
+					tools:text="125000" />
+
+			</RelativeLayout>
 
 			<TextView
 				android:id="@+id/placeDistance"
 				style="@style/AppTheme.Body1"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
+				android:layout_marginStart="@dimen/default_margin"
+				android:layout_alignParentBottom="true"
+				android:layout_toEndOf="@id/placeImage"
+				android:layout_marginBottom="13dp"
 				android:textColor="@color/greySecondary"
 				android:textStyle="bold"
-				tools:text="1 Km" />
-		</LinearLayout>
+				tools:text="4.3 Km" />
 
-		<LinearLayout
-			android:gravity="end"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginStart="@dimen/margin_10"
-			android:orientation="vertical">
+			<TextView
+				android:id="@+id/titik"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:theme="@style/AppTheme.Body1"
+				android:text="@string/titik"
+				android:layout_toEndOf="@id/placeDistance"
+				android:layout_alignParentBottom="true"
+				android:layout_marginBottom="13dp"
+				android:textStyle="bold"
+				android:textColor="@android:color/black"
+				android:layout_marginStart="@dimen/default_margin"
+				android:layout_marginEnd="@dimen/default_margin"/>
 
 			<TextView
 				android:id="@+id/closeHour"
-				android:textStyle="bold"
 				style="@style/AppTheme.Caption"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="HOUR"/>
-		</LinearLayout>
-	</LinearLayout>
+				android:layout_alignParentBottom="true"
+				android:layout_marginBottom="13dp"
+				android:layout_toEndOf="@id/titik"
+				tools:text="@string/buka"
+				tools:textColor="@android:color/holo_red_light"
+				android:textStyle="bold" />
+
+		</RelativeLayout>
+
+	</androidx.cardview.widget.CardView>
 </LinearLayout>

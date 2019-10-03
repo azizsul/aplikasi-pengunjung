@@ -95,8 +95,8 @@ abstract class PlaceAdapter(
                         val long = longitude * degree
 
                         //place location marker
-                        val lat2 = place.lat * degree
-                        val long2 = place.long * degree
+                        val lat2 = place.latitude * degree
+                        val long2 = place.longitude * degree
 
                         val x = (long2 - long) * cos((lat + lat2) / 2)
                         val y = (lat2 - lat)
@@ -130,11 +130,19 @@ abstract class PlaceAdapter(
 
             // Load image
             Glide.with(itemView.placeImage.context)
-                .load(place.images[0])
+                .load(place.gambar[0])
                 .apply(RequestOptions().centerInside())
                 .into(itemView.placeImage)
 
             itemView.placeName.text = place.getName()
+
+            itemView.tv_jenis_lapangan.text = place.getFieldType()
+
+            itemView.tv_harga_terendah.text = place.getHargaTerendah()
+
+            itemView.tv_harga_tertinggi.text = place.getHargaTertinggi()
+
+
 
             // Click listener
             itemView.setOnClickListener {

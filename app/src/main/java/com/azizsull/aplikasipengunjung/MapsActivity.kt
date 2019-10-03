@@ -4,6 +4,7 @@ package com.azizsull.aplikasipengunjung
 
 import android.Manifest
 import android.app.AlertDialog
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Build
@@ -21,6 +22,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
+import kotlinx.android.synthetic.main.activity_maps.*
 
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback,
@@ -29,9 +31,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback,
     LocationListener {
     override fun onConnectionFailed(p0: ConnectionResult) {}
 
-    val extraName: String = "place_name"
-    val extraLat: String = "place_lat"
-    val extraLong: String = "place_long"
+    val extraName: String = "namaTempat"
+    val extraLat: String = "latitude"
+    val extraLong: String = "longitude"
 
     private val myPermissionRequestLocation = 99
 
@@ -53,6 +55,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
+
+//        iv_backToDetail.setOnClickListener {
+//            val intent = Intent(this, PlaceDetailActivity::class.java)
+//            startActivity(intent)
+//            finish()
+//        }
+
         mapFrag =
             supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFrag!!.getMapAsync(this)
@@ -131,7 +140,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback,
 
         val lat = intent.getStringExtra(extraLat)
         val lng = intent.getStringExtra(extraLong)
-        val name = intent.getStringExtra(extraName)
+        val namaTempat = intent.getStringExtra(extraName)
 
         val x = lat.toDouble()
         val y = lng.toDouble()
@@ -148,7 +157,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback,
 
         if (x != 0.0 && y != 0.0) {
             val destinationLoc = LatLng(x, y)
-            val destinationMarkerOptions = MarkerOptions().position(destinationLoc).title(name)
+            val destinationMarkerOptions = MarkerOptions().position(destinationLoc).title(namaTempat)
             mMap?.addMarker(destinationMarkerOptions)
             try {
                 val bounds = LatLngBounds.builder().include(destinationLoc).include(myLocation).build()
@@ -217,5 +226,4 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback,
             }
         }
     }
-
 }

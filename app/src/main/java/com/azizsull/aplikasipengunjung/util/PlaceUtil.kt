@@ -40,7 +40,7 @@ object PlaceUtil {
 ////        places.name = getRandomName(random)
 ////        places.alamat = getRandomString(cities, random)
 ////        places.category = getRandomString(categories, random)
-//////        places.images = getRandomImageUrl(random)
+//////        places.gambar = getRandomImageUrl(random)
 ////        places.price = getRandomInt(prices, random)
 ////        places.numRatings = random.nextInt(20)
 //

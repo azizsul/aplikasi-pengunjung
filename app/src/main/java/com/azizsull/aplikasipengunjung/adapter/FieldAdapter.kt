@@ -33,9 +33,10 @@ abstract class FieldAdapter(query: Query) :
                 return
             }
 
-            itemView.fieldName.text = field.name
+            itemView.fieldName.text = field.kodeLapangan
             itemView.fieldType.text = field.jenis
-//            itemView.dayPrice.text = field.hargaSiang
+            itemView.dayPrice.text = field.hargaSiang.toString()
+            itemView.nightPrice.text = field.hargaMalam.toString()
 
             // Click listener
             itemView.setOnClickListener {

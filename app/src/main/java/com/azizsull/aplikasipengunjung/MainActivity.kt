@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
+
         FirebaseApp.initializeApp(this)
 
         // View model
@@ -73,8 +73,8 @@ class MainActivity : AppCompatActivity(),
         firestore = FirebaseFirestore.getInstance()
 
         // Get ${LIMIT} restaurants
-        query = firestore.collection("Lapangan")
-            .orderBy("name", Query.Direction.ASCENDING)
+        query = firestore.collection("tempatFutsal")
+            .orderBy("namaTempat", Query.Direction.ASCENDING)
             .limit(LIMIT.toLong())
 
         // RecyclerView
@@ -136,7 +136,7 @@ class MainActivity : AppCompatActivity(),
     private fun updateListUsers(text: String) {
 
         // Get ${LIMIT} restaurants
-        val setQuery = firestore.collection("Lapangan").whereEqualTo("name".toLowerCase(Locale.getDefault()), text.toLowerCase(
+        val setQuery = firestore.collection("tempatFutsal").whereEqualTo("namaTempat".toLowerCase(Locale.getDefault()), text.toLowerCase(
             Locale.getDefault()))
 
         val recyclerAdapter = object : PlaceAdapter(this@MainActivity, setQuery, this@MainActivity) {
@@ -227,7 +227,7 @@ class MainActivity : AppCompatActivity(),
 
     override fun onFilter(filters: Filters) {
         // Construct query basic query
-        var query: Query = firestore.collection("Lapangan")
+        var query: Query = firestore.collection("tempatFutsal")
 
 
         // City (equality filter)
@@ -398,9 +398,14 @@ class MainActivity : AppCompatActivity(),
         /**
          * GeoFire attr
          */
-        private const val COLLECTION = "Lapangan"
+        private const val COLLECTION = "tempatFutsal"
         /**
          *End of GeoFire attr
          */
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finishAffinity()
     }
 }

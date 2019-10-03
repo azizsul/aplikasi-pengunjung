@@ -1,9 +1,7 @@
 package com.azizsull.aplikasipengunjung
 
-import android.content.Context
 import android.text.TextUtils
 import com.azizsull.aplikasipengunjung.model.PlaceModel
-import com.azizsull.aplikasipengunjung.util.PlaceUtil
 import com.google.firebase.firestore.Query
 
 /**
@@ -60,7 +58,7 @@ class Filters {
         val default: Filters
             get() {
                 val filters = Filters()
-                filters.sortBy = PlaceModel.FIELD_NAME
+                filters.sortBy = PlaceModel.PLACE_NAME
                 filters.sortDirection = Query.Direction.ASCENDING
 
                 return filters

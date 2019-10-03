@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.azizsull.aplikasipengunjung.model.PlaceModel
 import com.google.firebase.firestore.Query
-import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.dialog_filters.*
 import kotlinx.android.synthetic.main.dialog_filters.view.buttonCancel
 import kotlinx.android.synthetic.main.dialog_filters.view.buttonSearch
@@ -32,22 +31,22 @@ class FilterDialogFragment : DialogFragment() {
             }
         }
 
-    private val selectedPrice: Int
-        get() {
-            val selected = spinnerHarga.selectedItem as String
-            return when (selected) {
-                getString(R.string.harga_terendah) -> 1
-                getString(R.string.harga_tertinggi) -> 2
-                getString(R.string.price_3) -> 3
-                else -> -1
-            }
-        }
+//    private val selectedPrice: Int
+//        get() {
+//            val selected = spinnerHarga.selectedItem as String
+//            return when (selected) {
+//                getString(R.string.harga_terendah) -> 1
+//                getString(R.string.harga_tertinggi) -> 2
+//                getString(R.string.price_3) -> 3
+//                else -> -1
+//            }
+//        }
 
     private val selectedSortBy: String?
         get() {
             val selected = spinnerJenisLapangan.selectedItem as String
             if (getString(R.string.all_field_type) == selected) {
-                return PlaceModel.FIELD_NAME
+                return PlaceModel.PLACE_NAME
             }
             return if (getString(R.string.sort_by_synthetic) == selected) {
                 return PlaceModel.FIELD_PRICE
@@ -80,7 +79,7 @@ class FilterDialogFragment : DialogFragment() {
             val filters = Filters()
 
             filters.city = selectedCity
-            filters.price = selectedPrice
+//            filters.price = selectedPrice
             filters.sortBy = selectedSortBy
             filters.sortDirection = sortDirection
 
@@ -132,7 +131,7 @@ class FilterDialogFragment : DialogFragment() {
     fun resetFilters() {
         spinnerLokasi?.setSelection(0)
         spinnerJamBuka?.setSelection(0)
-        spinnerHarga?.setSelection(0)
+//        spinnerHarga?.setSelection(0)
         spinnerJenisLapangan?.setSelection(0)
     }
 

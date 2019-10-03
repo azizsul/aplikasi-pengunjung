@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-	<string name="app_name">Aplikasi Pengunjung</string>
+	<string name="app_name">SIG Futsal</string>
 
 	<string name="value_any_field" tools:ignore="ExtraTranslation">Semua Lapangan</string>
 	<string name="value_any_location">Semua Lokasi</string>
@@ -51,10 +51,23 @@
 	<string name="value_location">Lokasi</string>
 	<string name="lokasi_terdekat">Lokasi Terdekat</string>
 	<string name="text_alamat">Jl. Ringroad Utara No.168, Ngringin, Condongcatur, Kec. Depok, Kabupaten Sleman, DIY 55281</string>
-	<string name="fasilitas_default">Kamar Mandi, Musholla, Cafe, Warung, Parkir Luasssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss</string>
+	<string name="fasilitas_default">Kamar Mandi, Musholla, Cafe, Warung, Parkir Luas</string>
 	<string name="title_activity_maps">Lokasi</string>
 	<string name="open_now">BUKA</string>
 	<string name="close_now">TUTUP</string>
+	<string name="harga_siang">Harga Siang</string>
+	<string name="harga_malam">Harga Malam</string>
+	<string name="titik2">:</string>
+	<string name="_100_000">100.000</string>
+	<string name="buka">BUKA</string>
+	<string name="list_lapangan">List Lapangan</string>
+	<string name="titik">.</string>
+	<string name="map">Map</string>
+	<string name="rp">Rp.</string>
+	<string name="fototempatfutsal">fotoTempatFutsal</string>
+	<string name="strip">-</string>
+	<string name="halaman_utama">Halaman Utama</string>
+	<string name="detail_tempat_futsal">Detail Tempat Futsal</string>
 
 	<!-- Types of food I could think of in 5 minutes -->
 	<string-array name="categories">

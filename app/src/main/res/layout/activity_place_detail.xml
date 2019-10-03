@@ -1,131 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:background="#E0E0E0">
+	android:background="@color/bgHome">
+
+	<androidx.appcompat.widget.Toolbar
+		android:id="@+id/toolbar"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="@color/colorPrimary">
+
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+
+			<ImageView
+				android:id="@+id/iv_backToHome"
+				android:layout_width="wrap_content"
+				android:layout_height="60dp"
+				android:layout_marginEnd="@dimen/default_margin"
+				app:srcCompat="@drawable/arrow_back" />
+
+			<TextView
+				android:id="@+id/title"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_toEndOf="@id/iv_backToHome"
+				android:gravity="center"
+				android:minHeight="?actionBarSize"
+				android:text="@string/detail_tempat_futsal"
+				android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+				android:textColor="@android:color/white" />
+
+		</RelativeLayout>
+
+	</androidx.appcompat.widget.Toolbar>
+
+	<com.glide.slider.library.SliderLayout
+		android:id="@+id/carousels"
+		android:layout_width="wrap_content"
+		android:layout_height="220dp"
+		android:layout_below="@id/toolbar">
+
+		<com.google.android.material.floatingactionbutton.FloatingActionButton
+			android:id="@+id/fabShowMaps"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentEnd="true"
+			android:layout_alignParentBottom="true"
+			android:layout_marginEnd="8dp"
+			android:layout_marginBottom="2dp"
+			app:srcCompat="@drawable/ic_map_white_24dp"
+			tools:ignore="MissingConstraints" />
+
+	</com.glide.slider.library.SliderLayout>
 
 	<ScrollView
 		android:id="@+id/scrollView"
 		android:layout_width="match_parent"
-		android:layout_height="0dp"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintHorizontal_bias="0.0"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/carousels">
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/carousels">
 
-		<LinearLayout
-			android:id="@+id/linearLayout"
+		<RelativeLayout
+			android:id="@+id/relativeLayout2"
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="0dp"
-			android:orientation="vertical"
-			android:padding="@dimen/margin_10">
+			android:layout_height="wrap_content">
 
-			<!--Nama Tempat Futsal-->
-			<TextView
-				android:id="@+id/tv_nama_lapangan"
-				style="@style/AppTheme.Title"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginLeft="8dp"
-				android:layout_marginTop="6dp"
-				android:layout_marginBottom="7dp"
-				android:textColor="@android:color/background_dark"
-				android:textStyle="bold"
-				tools:text="Planet Futsal" />
-
-			<!--Alamat-->
-			<TextView
-				android:id="@+id/tv_alamat"
-				style="@style/AppTheme.Subheader"
+			<LinearLayout
+				android:id="@+id/linearLayout"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_marginEnd="4dp"
-				android:drawableStart="@drawable/ic_place"
-				android:drawablePadding="5dp"
-				android:textColor="@color/greyOld"
-				tools:text="@string/text_alamat" />
+				android:background="@android:color/white"
+				android:orientation="vertical"
+				android:paddingStart="@dimen/default_margin"
+				android:paddingTop="@dimen/default_margin"
+				android:paddingEnd="@dimen/default_margin">
 
-			<!--Info Jam Buka-->
-			<TextView
-				android:id="@+id/tv_jamBuka"
-				style="@style/AppTheme.Subheader"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginTop="8dp"
-				android:drawableStart="@drawable/ic_watch_black"
-				android:drawablePadding="5dp"
-				android:gravity="center_vertical"
-				android:textColor="@android:color/black"
-				android:textStyle="bold"
-				tools:text="08.00 - 24.00" />
+				<!--Nama Tempat Futsal-->
+				<TextView
+					android:id="@+id/tv_nama_lapangan"
+					style="@style/AppTheme.Title"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="8dp"
+					android:layout_marginTop="4dp"
+					android:layout_marginBottom="7dp"
+					android:textColor="@android:color/background_dark"
+					android:textStyle="bold"
+					tools:text="Planet Futsal" />
 
-			<!--No Telp-->
-			<TextView
-				android:id="@+id/tv_noTelp"
-				style="@style/AppTheme.Subheader"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginTop="8dp"
-				android:drawableStart="@drawable/ic_phone"
-				android:drawablePadding="5dp"
-				android:gravity="center_vertical"
-				android:textColor="@android:color/black"
-				tools:text="(0274) 4477788" />
+				<!--Alamat-->
+				<TextView
+					android:id="@+id/tv_alamat"
+					style="@style/AppTheme.Subheader"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginEnd="4dp"
+					android:drawableStart="@drawable/ic_place"
+					android:drawablePadding="5dp"
+					android:textColor="@color/greyOld"
+					tools:text="@string/text_alamat" />
 
-			<!--Fasilitas-->
-			<TextView
-				android:id="@+id/tv_fasilitas"
-				style="@style/AppTheme.Subheader"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginStart="1dp"
-				android:layout_marginTop="8dp"
-				android:layout_marginEnd="4dp"
-				android:drawableStart="@drawable/ic_more"
-				android:drawablePadding="5dp"
-				android:gravity="center_vertical"
-				android:textColor="@android:color/black"
-				tools:text="@string/fasilitas_default" />
+				<!--Info Jam Buka-->
+				<TextView
+					android:id="@+id/tv_jamBuka"
+					style="@style/AppTheme.Subheader"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="8dp"
+					android:drawableStart="@drawable/ic_watch_black"
+					android:drawablePadding="5dp"
+					android:gravity="center_vertical"
+					android:textColor="@color/greyOld"
+					android:textStyle="bold"
+					tools:text="08.00 - 24.00" />
+
+				<!--No Telp-->
+				<TextView
+					android:id="@+id/tv_noTelp"
+					style="@style/AppTheme.Subheader"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="8dp"
+					android:drawableStart="@drawable/ic_phone"
+					android:drawablePadding="5dp"
+					android:gravity="center_vertical"
+					android:textColor="@color/greyOld"
+					tools:text="(0274) 4477788" />
+
+				<!--Fasilitas-->
+				<TextView
+					android:id="@+id/tv_fasilitas"
+					style="@style/AppTheme.Subheader"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="1dp"
+					android:layout_marginTop="8dp"
+					android:layout_marginEnd="4dp"
+					android:drawableStart="@drawable/ic_more"
+					android:drawablePadding="5dp"
+					android:gravity="center_vertical"
+					android:textColor="@color/greyOld"
+					tools:text="@string/fasilitas_default" />
+
+				<TextView
+					style="@style/AppTheme.Subheader"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="15dp"
+					android:text="@string/list_lapangan"
+					android:textColor="@android:color/black"
+					android:textStyle="italic|bold" />
+
+			</LinearLayout>
 
 			<!-- Lapangan -->
 			<androidx.recyclerview.widget.RecyclerView
 				android:id="@+id/recyclerFields"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_marginTop="0dp"
-				android:background="@android:color/transparent"
+				android:layout_below="@id/linearLayout"
+				android:layout_marginTop="@dimen/margin_5"
 				tools:listitem="@layout/item_field" />
 
-		</LinearLayout>
+		</RelativeLayout>
+
 	</ScrollView>
 
-	<com.glide.slider.library.SliderLayout
-		android:id="@+id/carousels"
-		android:layout_width="wrap_content"
-		android:layout_height="220dp"
-		app:layout_constraintBottom_toTopOf="@+id/scrollView"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent" />
-
-	<com.google.android.material.floatingactionbutton.FloatingActionButton
-		android:id="@+id/fabShowMaps"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginEnd="8dp"
-		android:layout_marginBottom="8dp"
-		app:layout_constraintBottom_toTopOf="@+id/scrollView"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintHorizontal_bias="1.0"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="@+id/carousels"
-		app:layout_constraintVertical_bias="1.0"
-		app:srcCompat="@drawable/ic_map_white_24dp"
-		tools:ignore="MissingConstraints" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
 

@@ -12,9 +12,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         android:textStyle="bold"
-        android:drawableLeft="@drawable/ic_filter_list_black_24dp"
+        android:drawableStart="@drawable/ic_filter_list_black_24dp"
         android:drawablePadding="5dp"
         android:text="@string/header_filters" />
 
@@ -34,7 +34,7 @@
             android:id="@+id/spinnerLokasi"
             style="@style/AppTheme.FilterSpinner"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/icon_lokasi"
+            android:layout_toEndOf="@+id/icon_lokasi"
             android:entries="@array/lokasi"/>
 
     </RelativeLayout>
@@ -55,7 +55,7 @@
             android:id="@+id/spinnerJamBuka"
             style="@style/AppTheme.FilterSpinner"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/icon_watch"
+            android:layout_toEndOf="@+id/icon_watch"
             android:entries="@array/sort_by_open_now" />
     </RelativeLayout>
 
@@ -75,7 +75,7 @@
             android:id="@+id/spinnerHarga"
             style="@style/AppTheme.FilterSpinner"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/icon_price"
+            android:layout_toEndOf="@+id/icon_price"
             android:entries="@array/prices" />
 
     </RelativeLayout>
@@ -96,7 +96,7 @@
             android:id="@+id/spinnerJenisLapangan"
             style="@style/AppTheme.FilterSpinner"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/icon_sort"
+            android:layout_toEndOf="@+id/icon_sort"
             android:entries="@array/jenis_lapangan" />
     </RelativeLayout>
 

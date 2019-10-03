@@ -8,29 +8,43 @@ import com.google.firebase.firestore.IgnoreExtraProperties
 @IgnoreExtraProperties
 data class PlaceModel(
     val placeId: String = "",
-    private  val name: String = "",
+    val namaTempat: String = "",
     val alamat: String ="",
     val jamBuka: String = "",
     val jamTutup: String = "",
-    val facility: String = "",
+    val fasilitas: String = "",
     val noTelp: String = "",
-    val lat: Double = 0.0,
-    val long: Double = 0.0,
-    val images: ArrayList<String> = arrayListOf(PlaceImages().images)
+    val latitude: Double = 0.0,
+    val longitude: Double = 0.0,
+    val jenisLapangan: String = "",
+    private val hargaTerendah: Int = 0,
+    private val hargaTertinggi: Int = 0,
+    val gambar: ArrayList<String> = arrayListOf(PlaceImages().gambar)
 ) {
 
     companion object {
 
         const val FIELD_PRICE = "price"
-        const val OPEN_NOW = "jamBuka"
-        const val FIELD_NAME = "name"
+        const val PLACE_NAME = "namaTempat"
     }
 
     fun getName(): String {
-        return  this.name
+        return  this.namaTempat
+    }
+
+    fun getFieldType(): String {
+        return  this.jenisLapangan
+    }
+
+    fun getHargaTerendah(): String {
+        return  this.hargaTerendah.toString()
+    }
+
+    fun getHargaTertinggi(): String {
+        return  this.hargaTertinggi.toString()
     }
 }
 
 class PlaceImages {
-    val images: String = ""
+    val gambar: String = ""
 }
