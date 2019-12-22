@@ -9,59 +9,64 @@ import com.google.firebase.firestore.Query
  */
 class Filters {
 
-    var city: String? = null
-    var price = -1
-    var sortBy: String? = null
-    var sortDirection: Query.Direction = Query.Direction.DESCENDING
-
-    fun hasCity(): Boolean {
-        return !TextUtils.isEmpty(city)
-    }
-
-    fun hasPrice(): Boolean {
-        return price > 0
-    }
-
-    fun hasSortBy(): Boolean {
-        return !TextUtils.isEmpty(sortBy)
-    }
-
-    fun getSearchDescription(): String {
-        val desc = StringBuilder()
-
-        if (city != null) {
-            desc.append("<b>")
-            desc.append(city)
-            desc.append("</b>")
+    var location: String? = null
+        get() = field
+        set(value) {
+            field = value
+        }
+    var openTime: String? = null
+        get() = field
+        set(value) {
+            field = value
+        }
+    var price: String? = null
+        get() = field
+        set(value) {
+            field = value
+        }
+    var type: String? = null
+        get() = field
+        set(value) {
+            field = value
         }
 
-        if (price > 0) {
-            desc.append(" for ")
-            desc.append("<b>")
-//            desc.append(PlaceUtil.getPriceString(price))
-            desc.append("</b>")
-        }
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
 
-        return desc.toString()
+        other as Filters
+
+        if (location != other.location) return false
+        if (openTime != other.openTime) return false
+        if (price != other.price) return false
+        if (type != other.type) return false
+
+        return true
     }
 
-//    fun getOrderDescription(context: Context): String {
-//        return when (sortBy) {
-//            PlaceModel.FIELD_PRICE -> context.getString(R.string.sorted_by_price)
-//            PlaceModel.FIELD_POPULARITY -> context.getString(R.string.sorted_by_popularity)
-//            else -> context.getString(R.string.sorted_by_alphabet)
-//        }
-//    }
+    override fun hashCode(): Int {
+        var result = location?.hashCode() ?: 0
+        result = 31 * result + (openTime?.hashCode() ?: 0)
+        result = 31 * result + (price?.hashCode() ?: 0)
+        result = 31 * result + (type?.hashCode() ?: 0)
+        return result
+    }
 
     companion object {
 
         val default: Filters
             get() {
                 val filters = Filters()
-                filters.sortBy = PlaceModel.PLACE_NAME
-                filters.sortDirection = Query.Direction.ASCENDING
-
+                filters.location = "Semua Lokasi"
                 return filters
             }
     }
+
+    override fun toString(): String {
+        return "Filters(location=$location, openTime=$openTime, price=$price, type=$type)"
+    }
+
+
+
+
 }

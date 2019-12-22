@@ -12,15 +12,20 @@ import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
 import android.text.Html
+import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.SearchView
-import android.widget.Toast
+import android.view.ViewGroup
+import android.widget.*
+import androidx.annotation.LayoutRes
+import androidx.annotation.NonNull
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.azizsull.aplikasipengunjung.adapter.NewPlaceAdapter
 import com.azizsull.aplikasipengunjung.adapter.PlaceAdapter
 import com.azizsull.aplikasipengunjung.model.PlaceModel
 import com.azizsull.aplikasipengunjung.viewmodel.MainActivityViewModel
@@ -29,12 +34,19 @@ import com.firebase.ui.auth.ErrorCodes
 import com.firebase.ui.auth.IdpResponse
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
+import com.google.firebase.firestore.core.Filter
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_place_detail.*
+import kotlinx.android.synthetic.main.dialog_filters.*
+import me.carleslc.kotlin.extensions.conversions.toInt
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -53,6 +65,8 @@ class MainActivity : AppCompatActivity(),
 
     private lateinit var filterDialog: FilterDialogFragment
     lateinit var adapter: PlaceAdapter
+    lateinit var mAdapter: NewPlaceAdapter
+
 
     private lateinit var viewModel: MainActivityViewModel
 
@@ -77,30 +91,69 @@ class MainActivity : AppCompatActivity(),
             .orderBy("namaTempat", Query.Direction.ASCENDING)
             .limit(LIMIT.toLong())
 
-        // RecyclerView
-        adapter = object : PlaceAdapter(this@MainActivity, query, this@MainActivity) {
-            override fun onDataChanged() {
-                // Show/hide content if the query returns empty.
-                if (itemCount == 0) {
-                    recyclerPlace.visibility = View.GONE
-                    viewEmpty.visibility = View.VISIBLE
-                } else {
-                    recyclerPlace.visibility = View.VISIBLE
-                    viewEmpty.visibility = View.GONE
-                }
-            }
+        query.get().addOnCompleteListener{ task ->
+            if (task.isSuccessful) {
+                val document = task.result
+                if (document != null) {
+                    Log.d(TAG, "DocumentSnapshot data: " + task.result)
 
-            override fun onError(e: FirebaseFirestoreException) {
-                // Show a snackbar on errors
-                Snackbar.make(
-                    findViewById(android.R.id.content),
-                    "Error: check logs for info.", Snackbar.LENGTH_LONG
-                ).show()
+                    placeLists.clear()
+
+                    for (item in document) {
+                        Log.d(TAG, "${item.id} => ${item.data}")
+
+                        placeLists.add(item.toObject(PlaceModel::class.java))
+
+                        mAdapter = NewPlaceAdapter()
+
+                        mAdapter.setData(applicationContext, placeLists)
+
+//
+                        recyclerPlace.layoutManager = LinearLayoutManager(this)
+                        recyclerPlace.adapter = mAdapter
+
+//                        mAdapter.adapter = placeLists
+                    }
+                } else {
+                    Log.d(TAG, "No such document")
+                }
+            } else {
+                Log.d(TAG, "get failed with ", task.exception)
             }
         }
 
-        recyclerPlace.layoutManager = LinearLayoutManager(this)
-        recyclerPlace.adapter = adapter
+
+//        // RecyclerView
+//        adapter = object : PlaceAdapter(this@MainActivity, query, this@MainActivity) {
+//            override fun onDataChanged() {
+//                // Show/hide content if the query returns empty.
+//                if (itemCount == 0) {
+//                    recyclerPlace.visibility = View.GONE
+//                    viewEmpty.visibility = View.VISIBLE
+//                } else {
+//                    recyclerPlace.visibility = View.VISIBLE
+//                    viewEmpty.visibility = View.GONE
+//
+//                }
+//                progressLoading.visibility = View.GONE
+//
+//            }
+//
+//            override fun onError(e: FirebaseFirestoreException) {
+//                // Show a snackbar on errors
+//                Snackbar.make(
+//                    findViewById(android.R.id.content),
+//                    "Error: check logs for info.", Snackbar.LENGTH_LONG
+//                ).show()
+//                progressLoading.visibility = View.GONE
+//
+//            }
+//        }
+//
+////        Log.e("adapter", query)
+//
+//        recyclerPlace.layoutManager = LinearLayoutManager(this)
+//        recyclerPlace.adapter = adapter
 
         // Filter Dialog
         filterDialog = FilterDialogFragment()
@@ -119,69 +172,57 @@ class MainActivity : AppCompatActivity(),
 
             override fun onQueryTextChange(p0: String): Boolean {
 
-                val results = ArrayList<PlaceModel>()
-                for (model in placeLists) {
-                    if (model.getName().toLowerCase(Locale.getDefault()).contains(p0.toLowerCase(Locale.getDefault()))) {
-                        results.add(model)
-                    }
-                }
 
-                updateListUsers(p0)
+                Log.e("search", p0)
+//                onSearch(p0)
+//                mAdapter.filter(p0)
+//                adapter.search(p0)
+                mAdapter.search(p0)
+
                 return false
             }
         })
 
     }
 
-    private fun updateListUsers(text: String) {
+    private fun onSearch(p0: String) {
 
-        // Get ${LIMIT} restaurants
-        val setQuery = firestore.collection("tempatFutsal").whereEqualTo("namaTempat".toLowerCase(Locale.getDefault()), text.toLowerCase(
-            Locale.getDefault()))
+        var query: Query = firestore.collection("tempatFutsal")
+        query.whereLessThanOrEqualTo("namaTempat", p0)
+        query.whereGreaterThanOrEqualTo("namaTempat", p0)
 
-        val recyclerAdapter = object : PlaceAdapter(this@MainActivity, setQuery, this@MainActivity) {
-            override fun onDataChanged() {
-                // Show/hide content if the query returns empty.
-                if (itemCount == 0) {
-                    recyclerPlace.visibility = View.GONE
-                    viewEmpty.visibility = View.VISIBLE
-                } else {
-                    recyclerPlace.visibility = View.VISIBLE
-                    viewEmpty.visibility = View.GONE
-                }
-            }
+        query.whereLessThanOrEqualTo("alamat", p0)
+        query.whereGreaterThanOrEqualTo("alamat", p0)
 
-            override fun onError(e: FirebaseFirestoreException) {
-                // Show a snackbar on errors
-                Snackbar.make(
-                    findViewById(android.R.id.content),
-                    "Error: check logs for info.", Snackbar.LENGTH_LONG
-                ).show()
-            }
-        }
+        query.whereLessThanOrEqualTo("fasilitas", p0)
+        query.whereGreaterThanOrEqualTo("fasilitas", p0)
 
-        val layoutManager = LinearLayoutManager(applicationContext)
-        recyclerPlace.isNestedScrollingEnabled = false
-        recyclerPlace.adapter = recyclerAdapter
-        recyclerPlace.layoutManager = layoutManager
-        recyclerAdapter.notifyDataSetChanged()
+        query.whereLessThanOrEqualTo("jenisLapangan", p0)
+        query.whereGreaterThanOrEqualTo("jenisLapangan", p0)
+
+        query = query.limit(LIMIT.toLong())
+
+        // Update the query
+//        adapter.setQuery(query)
     }
+
+
 
     public override fun onStart() {
         super.onStart()
 
         // Apply filters
-        onFilter(viewModel.filters)
+//        onFilter(viewModel.filters)
 
         progressLoading.visibility = View.VISIBLE
 
         // Start listening for Firestore updates
-        adapter.startListening()
+//        adapter.startListening()
     }
 
     public override fun onStop() {
         super.onStop()
-        adapter.stopListening()
+//        adapter.stopListening()
 
         progressLoading.visibility = View.GONE
     }
@@ -211,9 +252,14 @@ class MainActivity : AppCompatActivity(),
     }
 
     private fun onClearFilterClicked() {
+        filterDialog = FilterDialogFragment()
         filterDialog.resetFilters()
+        mAdapter.resetFilter()
+
+        Log.d("clearFilter", "clicked");
 
         onFilter(Filters.default)
+
     }
 
     override fun onPlaceSelected(places: DocumentSnapshot) {
@@ -230,33 +276,56 @@ class MainActivity : AppCompatActivity(),
         var query: Query = firestore.collection("tempatFutsal")
 
 
-        // City (equality filter)
-        if (filters.hasCity()) {
-//            query = query.whereEqualTo(PlaceModel.FIELD_CITY, filters.city)
-        }
+        //get Current time and format to HH:mm
+//        val now = SimpleDateFormat("HH:mm")
+//        val currentTime = now.format(Date())
+//        Log.e("now" , currentTime)
+//
+//        Log.e("currentime" , currentTime)
+//
+//        Log.e("filter" , filters.toString())
 
-        // Price (equality filter)
-        if (filters.hasPrice()) {
-//            query = query.whereEqualTo(PlaceModel.FIELD_PRICE, filters.price)
-        }
+          mAdapter.filter(filters)
 
-        // Sort by (orderBy with direction)
-        if (filters.hasSortBy()) {
-            query = query.orderBy(filters.sortBy.toString(), filters.sortDirection)
-        }
+//
+//
+//        if (filters.openTime != "Semua Jam Buka") {
+//            query.whereLessThanOrEqualTo("jamTutup", currentTime.toString())
+//            query.whereGreaterThanOrEqualTo("jamBuka", currentTime.toString())
+//
+//        }
+//
+//
+//        if(filters.price == "Harga Terendah"){
+//            query = query.orderBy("hargaTerendah", Query.Direction.ASCENDING)
+//        }else if(filters.price == "Harga Tertinggi"){
+//            query = query.orderBy("hargaTertinggi", Query.Direction.DESCENDING)
+//        }
+//
+//        if (filters.type == "Vinyl") {
+//            query = query.whereIn("jenisLapangan", listOf("Vinyl", "Vinyl, Sintetis"))
+//        }else if(filters.type == "Sintetis"){
+//            query = query.whereIn("jenisLapangan", listOf("Sintetis", "Vinyl, Sintetis"))
+//        }
+//
+//        if (filters.location != "Semua Lokasi") {
+//            query = query.orderBy("latitude", Query.Direction.ASCENDING)
+//            query = query.orderBy("longitude", Query.Direction.ASCENDING)
+//
+//        }
+//
+//        // Limit items
+//        query = query.limit(LIMIT.toLong())
+//
+////        Log.e("query" , query.())
+//
+//
+//        // Update the query
+//        adapter.setQuery(query)
+//
+//        // Save filters
+//        viewModel.filters = filters
 
-        // Limit items
-        query = query.limit(LIMIT.toLong())
-
-        // Update the query
-        adapter.setQuery(query)
-
-        // Set header
-        textCurrentSearch.text = Html.fromHtml(filters.getSearchDescription())
-//        textCurrentSortBy.text = filters.getOrderDescription(this)
-
-        // Save filters
-        viewModel.filters = filters
     }
 
     private fun shouldStartSignIn(): Boolean {
@@ -409,3 +478,11 @@ class MainActivity : AppCompatActivity(),
         finishAffinity()
     }
 }
+
+//
+//private fun Query.whereGreaterThanOrEqualTo(s: String, type: String?): Query {
+//
+//}
+//
+
+

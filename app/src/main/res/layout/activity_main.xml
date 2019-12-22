@@ -50,6 +50,8 @@
                 android:layout_marginBottom="@dimen/default_margin"
                 app:queryHint="Search here..."/>
 
+
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/filterBar"
                 android:layout_width="match_parent"

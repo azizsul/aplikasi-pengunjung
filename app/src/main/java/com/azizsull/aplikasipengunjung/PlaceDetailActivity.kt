@@ -151,7 +151,7 @@ class PlaceDetailActivity : AppCompatActivity(), EventListener<DocumentSnapshot>
         tv_nama_lapangan.text = placeModel.getName()
         tv_alamat.text = placeModel.alamat
         tv_noTelp.text = placeModel.noTelp
-        tv_jamBuka.text = "${placeModel.jamBuka} - ${placeModel.jamTutup}"
+        tv_jamBuka.text = "${placeModel.jamBuka} - ${placeModel.jamTutup.toString()}"
         tv_fasilitas.text = placeModel.fasilitas
 
         val list = placeModel.gambar
