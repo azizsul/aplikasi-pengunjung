@@ -1,7 +1,8 @@
 package com.azizsull.aplikasipengunjung.adapter
 
+import android.app.Activity
 import android.content.Context
-import android.text.method.TextKeyListener.clear
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -9,11 +10,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.azizsull.aplikasipengunjung.Filters
 import com.azizsull.aplikasipengunjung.MainActivity
+import com.azizsull.aplikasipengunjung.PlaceDetailActivity
 import com.azizsull.aplikasipengunjung.R
 import com.azizsull.aplikasipengunjung.model.PlaceModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.google.android.gms.common.data.DataHolder
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
@@ -22,7 +23,6 @@ import kotlinx.android.synthetic.main.item_place.view.*
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.math.cos
 import kotlin.math.sqrt
 
@@ -39,7 +39,7 @@ class NewPlaceAdapter :
 
 
 
-    private var mContex: Context? = null
+    private var mActivity: Activity? = null
 
     interface OnPlaceSelectedListener {
 
@@ -106,6 +106,8 @@ class NewPlaceAdapter :
             val beginning = place.jamBuka
             val end = place.jamTutup
 
+            Log.e("id_place", place.id)
+
             if (currentTime in beginning..end) {
                 itemView.closeHour.text = "BUKA"
                 val open = itemView.closeHour.resources.getColor(R.color.open)
@@ -138,9 +140,9 @@ class NewPlaceAdapter :
 
     }
 
-    fun setData(context: Context?, allPlaces: ArrayList<PlaceModel>?) {
+    fun setData(activity: Activity?, allPlaces: ArrayList<PlaceModel>?) {
         places = allPlaces
-        mContex = context
+        mActivity = activity
         notifyDataSetChanged()
     }
 
@@ -163,7 +165,16 @@ class NewPlaceAdapter :
         holder.itemView.setOnClickListener { v ->
             listener?.onItemClickListener(v, holder.layoutPosition)
 
-            Log.e("CLICK",holder.layoutPosition.toString() )
+            Log.e("CLICK", places?.get(position)?.id )
+
+
+            val intent = Intent(mActivity, PlaceDetailActivity::class.java)
+            intent.putExtra(PlaceDetailActivity.KEY_PLACE_ID, places?.get(position)?.id)
+
+            mActivity?.startActivity(intent)
+            mActivity?.overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left)
+
+
         }
     }
 

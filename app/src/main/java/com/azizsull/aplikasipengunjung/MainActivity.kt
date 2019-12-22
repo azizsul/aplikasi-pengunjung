@@ -44,6 +44,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_place_detail.*
 import kotlinx.android.synthetic.main.dialog_filters.*
 import me.carleslc.kotlin.extensions.conversions.toInt
+import me.carleslc.kotlin.extensions.standard.with
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -51,8 +52,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity(),
-    FilterDialogFragment.FilterListener,
-    PlaceAdapter.OnPlaceSelectedListener {
+    FilterDialogFragment.FilterListener {
 
     val PERMISSION_ID = 42
     lateinit var mFusedLocationClient: FusedLocationProviderClient
@@ -102,11 +102,15 @@ class MainActivity : AppCompatActivity(),
                     for (item in document) {
                         Log.d(TAG, "${item.id} => ${item.data}")
 
-                        placeLists.add(item.toObject(PlaceModel::class.java))
+                        var data = item.toObject(PlaceModel::class.java)
+
+                        data.id = item.id
+
+                        placeLists.add(data)
 
                         mAdapter = NewPlaceAdapter()
 
-                        mAdapter.setData(applicationContext, placeLists)
+                        mAdapter.setData(this, placeLists)
 
 //
                         recyclerPlace.layoutManager = LinearLayoutManager(this)
@@ -177,7 +181,7 @@ class MainActivity : AppCompatActivity(),
 //                onSearch(p0)
 //                mAdapter.filter(p0)
 //                adapter.search(p0)
-                mAdapter.search(p0)
+                mAdapter?.search(p0)
 
                 return false
             }
@@ -261,15 +265,7 @@ class MainActivity : AppCompatActivity(),
         onFilter(Filters.default)
 
     }
-
-    override fun onPlaceSelected(places: DocumentSnapshot) {
-        // Go to the details page for the selected places
-        val intent = Intent(this, PlaceDetailActivity::class.java)
-        intent.putExtra(PlaceDetailActivity.KEY_PLACE_ID, places.id)
-
-        startActivity(intent)
-        overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left)
-    }
+    
 
     override fun onFilter(filters: Filters) {
         // Construct query basic query
@@ -478,6 +474,8 @@ class MainActivity : AppCompatActivity(),
         finishAffinity()
     }
 }
+
+
 
 //
 //private fun Query.whereGreaterThanOrEqualTo(s: String, type: String?): Query {

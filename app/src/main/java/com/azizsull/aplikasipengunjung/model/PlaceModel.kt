@@ -1,13 +1,16 @@
 package com.azizsull.aplikasipengunjung.model
 
+import com.google.firebase.firestore.Exclude
 import com.google.firebase.firestore.IgnoreExtraProperties
+
 
 /**
  * PlaceModel POJO.
  */
 @IgnoreExtraProperties
 class PlaceModel(
-    val placeId: String = "",
+
+    
     val namaTempat: String = "",
     val alamat: String ="",
     val jamBuka: String = "",
@@ -27,6 +30,10 @@ class PlaceModel(
         const val FIELD_PRICE = "price"
         const val PLACE_NAME = "namaTempat"
     }
+
+    var id: String = ""
+        get() = field
+        set(value){field = value}
 
     var jarak: Double = 0.0
         get() = field
@@ -54,6 +61,8 @@ class PlaceModel(
         return  this.jenisLapangan
     }
 
+
+
 //    fun getHargaTerendah(): String {
 //        return  this.hargaTerendah.toString()
 //    }
@@ -66,6 +75,18 @@ class PlaceModel(
 
 
 }
+
+@IgnoreExtraProperties
+class Model {
+    @Exclude
+    var id: String? = null
+
+    fun <T : Model?> withId(id: String): T {
+        this.id = id
+        return this as T
+    }
+}
+
 
 class PlaceImages {
     val gambar: String = ""
