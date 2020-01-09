@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
+import android.os.Build
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
@@ -19,6 +20,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.LayoutRes
 import androidx.annotation.NonNull
+import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -70,12 +72,15 @@ class MainActivity : AppCompatActivity(),
 
     private lateinit var viewModel: MainActivityViewModel
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         FirebaseApp.initializeApp(this)
+
+        svSearch.queryHint = "Cari berdasarkan nama"
 
         // View model
         viewModel = ViewModelProviders.of(this).get(MainActivityViewModel::class.java)
@@ -91,7 +96,7 @@ class MainActivity : AppCompatActivity(),
             .orderBy("namaTempat", Query.Direction.ASCENDING)
             .limit(LIMIT.toLong())
 
-        query.get().addOnCompleteListener{ task ->
+        query.get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val document = task.result
                 if (document != null) {
@@ -112,11 +117,9 @@ class MainActivity : AppCompatActivity(),
 
                         mAdapter.setData(this, placeLists)
 
-//
                         recyclerPlace.layoutManager = LinearLayoutManager(this)
                         recyclerPlace.adapter = mAdapter
 
-//                        mAdapter.adapter = placeLists
                     }
                 } else {
                     Log.d(TAG, "No such document")
@@ -126,38 +129,6 @@ class MainActivity : AppCompatActivity(),
             }
         }
 
-
-//        // RecyclerView
-//        adapter = object : PlaceAdapter(this@MainActivity, query, this@MainActivity) {
-//            override fun onDataChanged() {
-//                // Show/hide content if the query returns empty.
-//                if (itemCount == 0) {
-//                    recyclerPlace.visibility = View.GONE
-//                    viewEmpty.visibility = View.VISIBLE
-//                } else {
-//                    recyclerPlace.visibility = View.VISIBLE
-//                    viewEmpty.visibility = View.GONE
-//
-//                }
-//                progressLoading.visibility = View.GONE
-//
-//            }
-//
-//            override fun onError(e: FirebaseFirestoreException) {
-//                // Show a snackbar on errors
-//                Snackbar.make(
-//                    findViewById(android.R.id.content),
-//                    "Error: check logs for info.", Snackbar.LENGTH_LONG
-//                ).show()
-//                progressLoading.visibility = View.GONE
-//
-//            }
-//        }
-//
-////        Log.e("adapter", query)
-//
-//        recyclerPlace.layoutManager = LinearLayoutManager(this)
-//        recyclerPlace.adapter = adapter
 
         // Filter Dialog
         filterDialog = FilterDialogFragment()
@@ -178,10 +149,7 @@ class MainActivity : AppCompatActivity(),
 
 
                 Log.e("search", p0)
-//                onSearch(p0)
-//                mAdapter.filter(p0)
-//                adapter.search(p0)
-                mAdapter?.search(p0)
+                mAdapter.search(p0)
 
                 return false
             }
@@ -189,27 +157,26 @@ class MainActivity : AppCompatActivity(),
 
     }
 
-    private fun onSearch(p0: String) {
-
-        var query: Query = firestore.collection("tempatFutsal")
-        query.whereLessThanOrEqualTo("namaTempat", p0)
-        query.whereGreaterThanOrEqualTo("namaTempat", p0)
-
-        query.whereLessThanOrEqualTo("alamat", p0)
-        query.whereGreaterThanOrEqualTo("alamat", p0)
-
-        query.whereLessThanOrEqualTo("fasilitas", p0)
-        query.whereGreaterThanOrEqualTo("fasilitas", p0)
-
-        query.whereLessThanOrEqualTo("jenisLapangan", p0)
-        query.whereGreaterThanOrEqualTo("jenisLapangan", p0)
-
-        query = query.limit(LIMIT.toLong())
-
-        // Update the query
+//    private fun onSearch(p0: String) {
+//
+//        var query: Query = firestore.collection("tempatFutsal")
+//        query.whereLessThanOrEqualTo("namaTempat", p0)
+//        query.whereGreaterThanOrEqualTo("namaTempat", p0)
+//
+//        query.whereLessThanOrEqualTo("alamat", p0)
+//        query.whereGreaterThanOrEqualTo("alamat", p0)
+//
+//        query.whereLessThanOrEqualTo("fasilitas", p0)
+//        query.whereGreaterThanOrEqualTo("fasilitas", p0)
+//
+//        query.whereLessThanOrEqualTo("jenisLapangan", p0)
+//        query.whereGreaterThanOrEqualTo("jenisLapangan", p0)
+//
+//        query.limit(LIMIT.toLong())
+//
+//        // Update the query
 //        adapter.setQuery(query)
-    }
-
+//    }
 
 
     public override fun onStart() {
@@ -265,7 +232,7 @@ class MainActivity : AppCompatActivity(),
         onFilter(Filters.default)
 
     }
-    
+
 
     override fun onFilter(filters: Filters) {
         // Construct query basic query
@@ -281,7 +248,7 @@ class MainActivity : AppCompatActivity(),
 //
 //        Log.e("filter" , filters.toString())
 
-          mAdapter.filter(filters)
+        mAdapter.filter(filters)
 
 //
 //
@@ -474,7 +441,6 @@ class MainActivity : AppCompatActivity(),
         finishAffinity()
     }
 }
-
 
 
 //

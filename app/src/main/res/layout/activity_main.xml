@@ -47,10 +47,9 @@
                 android:layout_height="40dp"
                 android:layout_marginTop="2dp"
                 android:background="@drawable/outline_searchbar"
-                android:layout_marginBottom="@dimen/default_margin"
-                app:queryHint="Search here..."/>
-
-
+                app:queryHint="Cari"
+                app:defaultQueryHint="Cari"
+                android:layout_marginBottom="@dimen/default_margin"/>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/filterBar"
@@ -64,7 +63,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="55dp"
                     android:gravity="center_vertical">
 
                     <ImageView
@@ -92,17 +91,11 @@
                             style="@style/AppTheme.Body1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/all_place"
                             android:textColor="@color/greySecondary"
-                            tools:text="Filter" />
-
-                        <TextView
-                            android:id="@+id/textCurrentSortBy"
-                            style="@style/AppTheme.Caption"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/sorted_by_alphabet"
-                            android:textColor="@color/greyDisabled" />
+                            android:text="@string/header_filters"
+                            android:textAllCaps="true"
+                            android:textStyle="bold"
+                            android:textSize="18sp"/>
 
                     </LinearLayout>
 

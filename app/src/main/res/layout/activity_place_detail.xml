@@ -44,7 +44,18 @@
 		android:layout_height="220dp"
 		android:layout_below="@id/toolbar">
 
-		<com.google.android.material.floatingactionbutton.FloatingActionButton
+<!--		<com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--			android:id="@+id/fabShowMaps"-->
+<!--			android:layout_width="wrap_content"-->
+<!--			android:layout_height="wrap_content"-->
+<!--			android:layout_alignParentEnd="true"-->
+<!--			android:layout_alignParentBottom="true"-->
+<!--			android:layout_marginEnd="8dp"-->
+<!--			android:layout_marginBottom="2dp"-->
+<!--			app:srcCompat="@drawable/ic_map_white_24dp"-->
+<!--			tools:ignore="MissingConstraints" />-->
+
+		<Button
 			android:id="@+id/fabShowMaps"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
@@ -52,8 +63,11 @@
 			android:layout_alignParentBottom="true"
 			android:layout_marginEnd="8dp"
 			android:layout_marginBottom="2dp"
-			app:srcCompat="@drawable/ic_map_white_24dp"
-			tools:ignore="MissingConstraints" />
+			android:drawableLeft="@drawable/ic_map_white_24dp"
+			android:drawablePadding="4dp"
+			android:text="@string/tampil_map"
+			android:theme="@style/ThemeOverlay.FilterButton"/>
+
 
 	</com.glide.slider.library.SliderLayout>
 

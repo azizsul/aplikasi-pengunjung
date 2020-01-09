@@ -68,6 +68,7 @@
 	<string name="strip">-</string>
 	<string name="halaman_utama">Halaman Utama</string>
 	<string name="detail_tempat_futsal">Detail Tempat Futsal</string>
+	<string name="tampil_map">tampil map</string>
 
 	<!-- Types of food I could think of in 5 minutes -->
 	<string-array name="categories">

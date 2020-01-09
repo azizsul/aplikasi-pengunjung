@@ -29,7 +29,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback,
     GoogleApiClient.ConnectionCallbacks,
     GoogleApiClient.OnConnectionFailedListener,
     LocationListener {
-    override fun onConnectionFailed(p0: ConnectionResult) {}
+    override fun onConnectionFailed(p0: ConnectionResult) {
+
+    }
 
     val extraName: String = "namaTempat"
     val extraLat: String = "latitude"
@@ -43,7 +45,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback,
     private var mGoogleApiClient: GoogleApiClient? = null
     private var mLastLocation: Location? = null
     var mCurrLocationMarker: Marker? = null
-    var placeMarker: Marker? = null
+//    var placeMarker: Marker? = null
     private var mCircle: Circle? = null
 
     private var radiusInMeters = 500.0
@@ -55,12 +57,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
-
-//        iv_backToDetail.setOnClickListener {
-//            val intent = Intent(this, PlaceDetailActivity::class.java)
-//            startActivity(intent)
-//            finish()
-//        }
 
         mapFrag =
             supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
@@ -106,6 +102,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback,
 
     }
 
+
+
     private fun buildGoogleApiClient() {
         mGoogleApiClient = GoogleApiClient.Builder(this)
             .addConnectionCallbacks(this)
@@ -134,7 +132,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback,
         }
     }
 
-    override fun onConnectionSuspended(i: Int) {}
+    override fun onConnectionSuspended(p0: Int) {
+
+    }
 
     override fun onLocationChanged(location: Location) {
 
