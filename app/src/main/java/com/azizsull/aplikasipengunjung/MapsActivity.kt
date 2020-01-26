@@ -4,7 +4,6 @@ package com.azizsull.aplikasipengunjung
 
 import android.Manifest
 import android.app.AlertDialog
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Build
@@ -22,9 +21,9 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
-import kotlinx.android.synthetic.main.activity_maps.*
 
 
+@Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback,
     GoogleApiClient.ConnectionCallbacks,
     GoogleApiClient.OnConnectionFailedListener,
@@ -44,8 +43,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback,
     private var mLocationRequest: LocationRequest? = null
     private var mGoogleApiClient: GoogleApiClient? = null
     private var mLastLocation: Location? = null
-    var mCurrLocationMarker: Marker? = null
-//    var placeMarker: Marker? = null
+    private var mCurrLocationMarker: Marker? = null
     private var mCircle: Circle? = null
 
     private var radiusInMeters = 500.0
@@ -67,7 +65,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback,
         super.onPause()
 
         //stop location updates when Activity is no longer active
-
 
         if (mGoogleApiClient != null) {
             LocationServices.FusedLocationApi.removeLocationUpdates(

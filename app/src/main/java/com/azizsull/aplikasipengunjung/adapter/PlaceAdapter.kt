@@ -1,14 +1,15 @@
 package com.azizsull.aplikasipengunjung.adapter
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.util.Log
+import android.app.Activity
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.azizsull.aplikasipengunjung.Filters
 import com.azizsull.aplikasipengunjung.MainActivity
+import com.azizsull.aplikasipengunjung.PlaceDetailActivity
 import com.azizsull.aplikasipengunjung.R
 import com.azizsull.aplikasipengunjung.model.PlaceModel
 import com.bumptech.glide.Glide
@@ -16,60 +17,33 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
-import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.item_place.view.*
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.math.cos
 import kotlin.math.sqrt
-import com.azizsull.aplikasipengunjung.R.color as colors
 
 
-/**
- * RecyclerView adapter for a list of Restaurants.
- */
-abstract class PlaceAdapter(
-    mContext: Context, query: Query, private val listener: OnPlaceSelectedListener
-) :
-    FirestoreAdapter<PlaceAdapter.ViewHolder>(query) {
+@Suppress("DEPRECATION")
+class PlaceAdapter :
+    RecyclerView.Adapter<PlaceAdapter.ViewHolder>() {
+    private var listener: OnItemClickListener? = null
+    private var places: ArrayList<PlaceModel>? = null
 
-    internal var inflater: LayoutInflater = LayoutInflater.from(mContext)
-    private var arrayList: ArrayList<PlaceModel> = ArrayList()
 
-    init {
-        this.arrayList.addAll(MainActivity.placeLists)
-    }
 
-    interface OnPlaceSelectedListener {
-
-        fun onPlaceSelected(places: DocumentSnapshot)
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        return ViewHolder(inflater.inflate(R.layout.item_place, parent, false))
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getSnapshot(position), listener)
-    }
+    private var mActivity: Activity? = null
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        @SuppressLint("ResourceAsColor", "MissingPermission")
-        fun bind(
-            snapshot: DocumentSnapshot,
-            listener: OnPlaceSelectedListener?
-        ) {
+        @SuppressLint("SetTextI18n", "SimpleDateFormat")
+        fun bind(place: PlaceModel) {
 
             //get current location
             var latitude: Double
             var longitude: Double
 
-            val place = snapshot.toObject(PlaceModel::class.java) ?: return
 
             val mLocationRequest = LocationRequest()
             mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
@@ -109,6 +83,8 @@ abstract class PlaceAdapter(
                         val distance = "$format Km"
 
                         itemView.placeDistance.text = distance
+
+                        place.jarak = actual
                     }
                 }
 
@@ -122,15 +98,16 @@ abstract class PlaceAdapter(
 
             if (currentTime in beginning..end) {
                 itemView.closeHour.text = "BUKA"
-                val open = itemView.closeHour.resources.getColor(colors.open)
+                val open = itemView.closeHour.resources.getColor(R.color.open)
                 itemView.closeHour.setTextColor(open)
+                place.isOpen = true
             } else {
-                val close = itemView.closeHour.resources.getColor(colors.close)
+                val close = itemView.closeHour.resources.getColor(R.color.close)
                 itemView.closeHour.setTextColor(close)
                 itemView.closeHour.text = "TUTUP"
             }
 
-            // Load image
+
             Glide.with(itemView.placeImage.context)
                 .load(place.gambar[0])
                 .apply(RequestOptions().centerInside())
@@ -144,61 +121,118 @@ abstract class PlaceAdapter(
 
             itemView.tv_harga_tertinggi.text = place.hargaTertinggi.toString()
 
-
-
             // Click listener
-            itemView.setOnClickListener {
-                listener?.onPlaceSelected(snapshot)
-            }
+
+
         }
 
     }
 
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
+    fun setData(activity: Activity?, allPlaces: ArrayList<PlaceModel>?) {
+        places = allPlaces
+        mActivity = activity
+        notifyDataSetChanged()
+    }
+
+    private fun updateList(allPlaces: ArrayList<PlaceModel>?) {
+        places = allPlaces
+        notifyDataSetChanged()
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_place, parent, false)
+        return ViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        places?.get(position)?.let { room ->
+            holder.bind(room)
+        }
+
+        holder.itemView.setOnClickListener { v ->
+            listener?.onItemClickListener(v, holder.layoutPosition)
+
+            val intent = Intent(mActivity, PlaceDetailActivity::class.java)
+            intent.putExtra(PlaceDetailActivity.KEY_PLACE_ID, places?.get(position)?.id)
+
+            mActivity?.startActivity(intent)
+            mActivity?.overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left)
+
+
+        }
     }
 
     fun filter(filters: Filters) {
 
-        Log.e("placeAdapter" , filters.toString())
+        var filteredList: ArrayList<PlaceModel>? = places
 
-//        var charText = text
-//        charText = charText.toLowerCase(Locale.getDefault())
-//        arrayList.clear()
-//        for (wp in arrayList) {
-//            if (wp.getName().toLowerCase(Locale.getDefault()).contains(charText)) {
-//                arrayList.add(wp)
-//            }
-//
-//        }
+        if (filters.location != "Semua Lokasi"){
+            filteredList?.sortBy { it.jarak }
+        }else{
+            filteredList = MainActivity.placeLists
+        }
 
-        notifyDataSetChanged()
+        if (filters.openTime == "Sekarang Buka") {
+
+            val nowOpen = filteredList?.filter { it.isOpen }
+            filteredList = nowOpen as ArrayList<PlaceModel>?
+        }else{
+            filteredList = filteredList
+        }
+
+        if (filters.price == "Harga Terendah") {
+            filteredList?.sortBy { it.hargaTerendah }
+        }else if(filters.price == "Harga Tertinggi"){
+            filteredList?.sortByDescending { it.hargaTertinggi }
+        }else{
+            filteredList = filteredList
+        }
+
+        if (filters.type == "Vinyl") {
+           val vinyl =  filteredList?.filter{ it.jenisLapangan.contains("Vinyl") }
+            filteredList = vinyl as ArrayList<PlaceModel>?
+        }else if(filters.type == "Sintetis"){
+            val sintetis = places?.filter{ it.jenisLapangan.contains("Sintetis") }
+            filteredList = sintetis as ArrayList<PlaceModel>?
+        }else{
+            filteredList = filteredList
+        }
+
+        updateList(filteredList)
+
     }
 
-    fun search(text: String) {
-        val temp: MutableList<PlaceModel> = java.util.ArrayList()
+    fun resetFilter(){
+        var places: ArrayList<PlaceModel>? = MainActivity.placeLists;
+        updateList(places)
+    }
 
-        Log.e("onSearch" , text)
+
+    fun search(text: String) {
+        var searchPlaces: ArrayList<PlaceModel>? = MainActivity.placeLists;
 
         var charText = text
         charText = charText.toLowerCase(Locale.getDefault())
-        arrayList.clear()
-        for (wp in arrayList) {
-            if (wp.getName().toLowerCase(Locale.getDefault()).contains(charText)) {
-                arrayList.add(wp)
-            }
+
+        if(charText != "" || charText != ""){
+            val search =  searchPlaces?.filter{ it.namaTempat.toLowerCase(Locale.getDefault()).contains(charText) }
+
+            searchPlaces = search as ArrayList<PlaceModel>?
+
+        }else{
+            searchPlaces = MainActivity.placeLists
 
         }
 
-//        updateList(temp)
-
-//        notifyDataSetChanged()
+        updateList(searchPlaces)
     }
 
-//    fun updateList(allPlaces: List<PlaceModel>?) {
-//        places = allPlaces
-//        notifyDataSetChanged()
-//    }
+    override fun getItemCount(): Int {
+        return places?.size ?: 0
+    }
 
-
+    interface OnItemClickListener {
+        fun onItemClickListener(v: View, pos: Int)
+    }
 }

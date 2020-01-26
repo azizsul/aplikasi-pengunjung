@@ -22,8 +22,6 @@ import com.glide.slider.library.SliderTypes.TextSliderView
 import com.glide.slider.library.Tricks.ViewPagerEx
 import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.*
-import com.google.firebase.firestore.EventListener
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_place_detail.*
 
 
@@ -90,7 +88,7 @@ class PlaceDetailActivity : AppCompatActivity(), EventListener<DocumentSnapshot>
 
     private var adapter: FieldFireStoreRecyclerAdapter? = null
 
-    lateinit var firestore: FirebaseFirestore
+    private lateinit var firestore: FirebaseFirestore
 
     private var requestOptions = RequestOptions()
 
@@ -151,7 +149,7 @@ class PlaceDetailActivity : AppCompatActivity(), EventListener<DocumentSnapshot>
         tv_nama_lapangan.text = placeModel.getName()
         tv_alamat.text = placeModel.alamat
         tv_noTelp.text = placeModel.noTelp
-        tv_jamBuka.text = "${placeModel.jamBuka} - ${placeModel.jamTutup.toString()}"
+        tv_jamBuka.text = "${placeModel.jamBuka} - ${placeModel.jamTutup}"
         tv_fasilitas.text = placeModel.fasilitas
 
         val list = placeModel.gambar
@@ -211,8 +209,6 @@ class PlaceDetailActivity : AppCompatActivity(), EventListener<DocumentSnapshot>
     }
 
     companion object {
-
-        private const val LIMIT = 50
 
         private const val TAG = "PlaceDetail"
 

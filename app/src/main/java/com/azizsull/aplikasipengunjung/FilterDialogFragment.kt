@@ -1,13 +1,10 @@
 package com.azizsull.aplikasipengunjung
 
 import android.content.Context
-import android.content.res.Resources
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.fragment.app.DialogFragment
 import kotlinx.android.synthetic.main.dialog_filters.*
@@ -27,35 +24,29 @@ class FilterDialogFragment : DialogFragment() {
 
     private var filterListener: FilterListener? = null
 
-
-
     private val selectedLocation: String?
         get() {
-            val selected = spinnerLokasi.selectedItem as String
-            return selected
+            return spinnerLokasi.selectedItem as String
         }
 
 
     private val selectedType: String?
         get() {
-            val selected = spinnerJenisLapangan.selectedItem as String
-            return selected
+            return spinnerJenisLapangan.selectedItem as String
         }
 
     private val selectedOpenTime: String?
         get() {
-            val selected = spinnerJamBuka.selectedItem as String
-            return selected
+            return spinnerJamBuka.selectedItem as String
         }
 
     private val selectedPrice: String?
         get() {
-            val selected = spinnerHarga.selectedItem as String
-            return selected
+            return spinnerHarga.selectedItem as String
         }
 
 
-    val filters: Filters
+    private val filters: Filters
         get() {
             val filters = Filters()
 
@@ -82,11 +73,11 @@ class FilterDialogFragment : DialogFragment() {
         rootView.buttonSearch.setOnClickListener { onSearchClicked() }
         rootView.buttonCancel.setOnClickListener { onCancelClicked() }
 
-        spinLokasi = rootView.findViewById<Spinner>(R.id.spinnerLokasi)
+        spinLokasi = rootView.findViewById(R.id.spinnerLokasi)
 
-        spinJenisLapangan = rootView.findViewById<Spinner>(R.id.spinnerJenisLapangan)
-        spinHarga = rootView.findViewById<Spinner>(R.id.spinnerHarga)
-        spinJambuka = rootView.findViewById<Spinner>(R.id.spinnerJamBuka)
+        spinJenisLapangan = rootView.findViewById(R.id.spinnerJenisLapangan)
+        spinHarga = rootView.findViewById(R.id.spinnerHarga)
+        spinJambuka = rootView.findViewById(R.id.spinnerJamBuka)
 
         return rootView
     }
@@ -96,9 +87,7 @@ class FilterDialogFragment : DialogFragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        if (context is FilterListener) {
-            filterListener = context
-        }
+        if (context is FilterListener) filterListener = context
     }
 
     override fun onResume() {
@@ -118,9 +107,6 @@ class FilterDialogFragment : DialogFragment() {
     }
 
     fun resetFilters() {
-
-        Log.d(TAG, "resetFilters");
-
 
         spinnerLokasi?.setSelection(0)
         spinnerHarga?.setSelection(0)

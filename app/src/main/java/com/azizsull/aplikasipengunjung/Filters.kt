@@ -1,34 +1,14 @@
 package com.azizsull.aplikasipengunjung
 
-import android.text.TextUtils
-import com.azizsull.aplikasipengunjung.model.PlaceModel
-import com.google.firebase.firestore.Query
-
 /**
  * Object for passing filters around.
  */
 class Filters {
 
     var location: String? = null
-        get() = field
-        set(value) {
-            field = value
-        }
     var openTime: String? = null
-        get() = field
-        set(value) {
-            field = value
-        }
     var price: String? = null
-        get() = field
-        set(value) {
-            field = value
-        }
     var type: String? = null
-        get() = field
-        set(value) {
-            field = value
-        }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -65,8 +45,5 @@ class Filters {
     override fun toString(): String {
         return "Filters(location=$location, openTime=$openTime, price=$price, type=$type)"
     }
-
-
-
 
 }
